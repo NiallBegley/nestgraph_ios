@@ -62,9 +62,12 @@ class FirstTimeDataViewController: UIViewController {
 extension FirstTimeDataViewController {
     func fetchRecordsFor(device: Device)
     {
-        let url = URL(string: "http://localhost:3000/records/api_endpoint.json")!
+        var url = URLComponents(string: "http://localhost:3000/records/api_endpoint.json")!
+        url.queryItems = [
+            URLQueryItem(name: "device_id", value: device.device_id)
+        ]
         
-        var request = URLRequest(url: url)
+        var request = URLRequest(url: url.url!)
         request.setValue(UserDefaults.standard.getAuthToken(), forHTTPHeaderField: "Authorization")
         request.httpMethod = "GET"
         
@@ -83,12 +86,27 @@ extension FirstTimeDataViewController {
                 return
             }
             
-            let responseString = String(data: data, encoding: .utf8)
-            print("responseString = \(responseString)")
+//            let responseString = String(data: data, encoding: .utf8)
+//            print("responseString = \(responseString)")
             
             guard let records = self.parse(data, entity: [Record].self) else { return }
             
-            
+            let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Record")
+            guard let context = self.persistentContainer?.viewContext else {
+                return
+            }
+            //request.predicate = NSPredicate(format: "age = %@", "12")
+            request.returnsObjectsAsFaults = false
+            do {
+                let result = try context.fetch(request)
+                for data in result as! [Record] {
+                    print(data.created_at)
+                }
+                
+            } catch {
+                
+                print("Failed")
+            }
             
             
         }

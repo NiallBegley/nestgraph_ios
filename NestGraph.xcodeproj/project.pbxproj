@@ -14,6 +14,7 @@
 		3916A3C422EA613B008ACCF1 /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3916A3C322EA613B008ACCF1 /* Device.swift */; };
 		391A563A22EB1F090018C08A /* InstanceChooserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 391A563922EB1F090018C08A /* InstanceChooserViewController.swift */; };
 		3926651E22E87DD800C08E68 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3926651D22E87DD800C08E68 /* UserDefaults.swift */; };
+		3930C52422F0F3C70055AF9B /* DateFormatter+Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3930C52322F0F3C70055AF9B /* DateFormatter+Util.swift */; };
 		3934600622DC998C00EE35B9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3934600522DC998C00EE35B9 /* AppDelegate.swift */; };
 		3934600822DC998C00EE35B9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3934600722DC998C00EE35B9 /* ViewController.swift */; };
 		3934600B22DC998C00EE35B9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3934600922DC998C00EE35B9 /* Main.storyboard */; };
@@ -51,6 +52,7 @@
 		3916A3C322EA613B008ACCF1 /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
 		391A563922EB1F090018C08A /* InstanceChooserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstanceChooserViewController.swift; sourceTree = "<group>"; };
 		3926651D22E87DD800C08E68 /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
+		3930C52322F0F3C70055AF9B /* DateFormatter+Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Util.swift"; sourceTree = "<group>"; };
 		3934600222DC998C00EE35B9 /* NestGraph.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NestGraph.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3934600522DC998C00EE35B9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3934600722DC998C00EE35B9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -99,6 +101,7 @@
 			isa = PBXGroup;
 			children = (
 				39129B5022EFE3B8004953EF /* CodingUserInfoKey+Util.swift */,
+				3930C52322F0F3C70055AF9B /* DateFormatter+Util.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -325,6 +328,7 @@
 				3916A3C422EA613B008ACCF1 /* Device.swift in Sources */,
 				39129B5122EFE3B8004953EF /* CodingUserInfoKey+Util.swift in Sources */,
 				3915EA8D22EE0BDE00A4AC1F /* FirstTimeDataViewController.swift in Sources */,
+				3930C52422F0F3C70055AF9B /* DateFormatter+Util.swift in Sources */,
 				39129B5322EFEF9C004953EF /* Record.swift in Sources */,
 				3934600622DC998C00EE35B9 /* AppDelegate.swift in Sources */,
 				391A563A22EB1F090018C08A /* InstanceChooserViewController.swift in Sources */,

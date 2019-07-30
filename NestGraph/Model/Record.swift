@@ -37,7 +37,7 @@ class Record:  NSManagedObject, Codable {
         
         guard let codingUserInfoKeyManagedObjectContext = CodingUserInfoKey.managedObjectContext,
             let managedObjectContext = decoder.userInfo[codingUserInfoKeyManagedObjectContext] as? NSManagedObjectContext,
-            let entity = NSEntityDescription.entity(forEntityName: "Device", in: managedObjectContext) else {
+            let entity = NSEntityDescription.entity(forEntityName: "Record", in: managedObjectContext) else {
                 fatalError("Failed to decode Device")
         }
         
@@ -48,7 +48,14 @@ class Record:  NSManagedObject, Codable {
         self.internal_temp = try container.decodeIfPresent(Int.self, forKey: .internal_temp) ?? 0
         self.external_temp = try container.decodeIfPresent(Float.self, forKey: .external_temp) ?? 0.0
         self.target_temp = try container.decodeIfPresent(Int.self, forKey: .target_temp) ?? 0
-        self.created_at = try container.decodeIfPresent(Date.self, forKey: .created_at)
+        let dateString = try container.decodeIfPresent(String.self, forKey: .created_at)
+        let formatter = DateFormatter.iso8601Full
+        
+        if dateString != nil
+        {
+            self.created_at = formatter.date(from: dateString!)
+        }
+        
         self.humidity = try container.decodeIfPresent(Int.self, forKey: .humidity) ?? 0
         self.timeToTarget = try container.decodeIfPresent(String.self, forKey: .timeToTarget)
         self.external_humidity = try container.decodeIfPresent(Int.self, forKey: .external_humidity) ?? 0
