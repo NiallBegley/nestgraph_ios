@@ -44,7 +44,11 @@ class FirstTimeDataViewController: UIViewController {
             let responseString = String(data: data, encoding: .utf8)
             print("responseString = \(responseString)")
             
-            self.parse(data)
+            guard let devices = self.parse(data, entity: [Device].self) else { return }
+            for device in devices {
+                self.fetchRecordsFor(device: device)
+            }
+            
             
   
            
@@ -56,8 +60,44 @@ class FirstTimeDataViewController: UIViewController {
 }
 
 extension FirstTimeDataViewController {
+    func fetchRecordsFor(device: Device)
+    {
+        let url = URL(string: "http://localhost:3000/records/api_endpoint.json")!
+        
+        var request = URLRequest(url: url)
+        request.setValue(UserDefaults.standard.getAuthToken(), forHTTPHeaderField: "Authorization")
+        request.httpMethod = "GET"
+        
+        //TODO: Needs to handle failures
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data,
+                let response = response as? HTTPURLResponse,
+                error == nil else {                                              // check for fundamental networking error
+                    print("error", error ?? "Unknown error")
+                    return
+            }
+            
+            guard (200 ... 299) ~= response.statusCode else {                    // check for http errors
+                print("statusCode should be 2xx, but is \(response.statusCode)")
+                print("response = \(response)")
+                return
+            }
+            
+            let responseString = String(data: data, encoding: .utf8)
+            print("responseString = \(responseString)")
+            
+            guard let records = self.parse(data, entity: [Record].self) else { return }
+            
+            
+            
+            
+        }
+        
+        task.resume()
+    }
     
-    func parse(_ jsonData: Data) -> Bool {
+    
+    func parse<T: Decodable> (_ jsonData: Data, entity: T.Type) -> T? {
         do {
             guard let codingUserInfoKeyManagedObjectContext = CodingUserInfoKey.managedObjectContext else {
                 fatalError("Failed to retrieve context")
@@ -65,18 +105,18 @@ extension FirstTimeDataViewController {
             
             // Parse JSON data
             guard let managedObjectContext = persistentContainer?.viewContext else {
-                return false
+                return nil
             }
           
             let decoder = JSONDecoder()
             decoder.userInfo[codingUserInfoKeyManagedObjectContext] = managedObjectContext
-            _ = try decoder.decode([Device].self, from: jsonData)
+            let entities = try decoder.decode(entity, from: jsonData)
             try managedObjectContext.save()
             
-            return true
+            return entities
         } catch let error {
             print(error)
-            return false
+            return nil
         }
     }
     
