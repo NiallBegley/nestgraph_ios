@@ -6,6 +6,12 @@
         <attribute name="device_id" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name_long" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="records" toMany="YES" deletionRule="Nullify" destinationEntity="Record" inverseName="device" inverseEntity="Record" syncable="YES"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="device_id"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
     </entity>
     <entity name="Record" representedClassName=".Record" syncable="YES">
         <attribute name="created_at" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
@@ -18,9 +24,10 @@
         <attribute name="is_heating" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="target_temp" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="timeToTarget" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="device" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Device" inverseName="records" inverseEntity="Device" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Device" positionX="-63" positionY="-18" width="128" height="120"/>
-        <element name="Record" positionX="-63" positionY="18" width="128" height="195"/>
+        <element name="Device" positionX="-63" positionY="-18" width="128" height="133"/>
+        <element name="Record" positionX="-566.796875" positionY="89.859375" width="128" height="208"/>
     </elements>
 </model>

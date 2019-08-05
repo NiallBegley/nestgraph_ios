@@ -9,23 +9,47 @@
 import UIKit
 import CoreData
 
-class FirstTimeDataViewController: UIViewController {
+struct ProgressStep {
+    let text : NSString?
+    var animating : Bool
+    var done : Bool
+    
+    init(text: NSString, animating: Bool, done: Bool) {
+        self.text = text
+        self.animating = animating
+        self.done = done
+    }
+}
 
+class FirstTimeDataViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    @IBOutlet weak var tableView: UITableView!
+    
+    @IBOutlet weak var doneButton: UIButton!
     var persistentContainer: NSPersistentContainer?
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        if let navVC = self.navigationController as? SetupViewController {
-            self.persistentContainer = navVC.persistentContainer
+    var progressSteps: [ProgressStep] = []
+    private var recordController : RecordController?
+    
+    override func viewDidAppear(_ animated: Bool) {
+        
+        guard let host = UserDefaults.standard.getHost(),
+            let url = URL(string: host + "/devices/api_endpoint.json") else {
+                print("Error forming URL for devices endpoint")
+                return
         }
         
-        let url = URL(string: "http://localhost:3000/devices/api_endpoint.json")!
+        let handler: () -> Void = {
+            DispatchQueue.main.async() {
+                self.progressSteps[self.progressSteps.count-1].done = true
+                self.tableView.reloadData()
+                
+                self.doneButton.isHidden = false
+            }
+        }
         
         var request = URLRequest(url: url)
         request.setValue(UserDefaults.standard.getAuthToken(), forHTTPHeaderField: "Authorization")
         request.httpMethod = "GET"
-      
+        
         //TODO: Needs to handle failures
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data,
@@ -44,98 +68,66 @@ class FirstTimeDataViewController: UIViewController {
             let responseString = String(data: data, encoding: .utf8)
             print("responseString = \(responseString)")
             
-            guard let devices = self.parse(data, entity: [Device].self) else { return }
+            guard let devices = self.recordController?.parse(data, entity: [Device].self) else { return }
+            
+            print("Found \(devices.count) devices")
+            
+            DispatchQueue.main.async() {
+                let stepText = NSString(format: "Found %d Nest devices", devices.count)
+                self.progressSteps[self.progressSteps.count-1].done = true
+                self.progressSteps.append(ProgressStep.init(text: stepText, animating: false, done: true))
+                
+                
+                self.progressSteps.append(ProgressStep.init(text: "Fetching records for devices", animating: true, done: false))
+                self.tableView.reloadData()
+            }
+            
+            //TODO: Thread safety
             for device in devices {
-                self.fetchRecordsFor(device: device)
+                self.recordController?.fetchRecordsFor(device: device, completionHandler: handler)
             }
-            
-            
-  
-           
-        }
-        
-        task.resume()
-    }
-
-}
-
-extension FirstTimeDataViewController {
-    func fetchRecordsFor(device: Device)
-    {
-        var url = URLComponents(string: "http://localhost:3000/records/api_endpoint.json")!
-        url.queryItems = [
-            URLQueryItem(name: "device_id", value: device.device_id)
-        ]
-        
-        var request = URLRequest(url: url.url!)
-        request.setValue(UserDefaults.standard.getAuthToken(), forHTTPHeaderField: "Authorization")
-        request.httpMethod = "GET"
-        
-        //TODO: Needs to handle failures
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            guard let data = data,
-                let response = response as? HTTPURLResponse,
-                error == nil else {                                              // check for fundamental networking error
-                    print("error", error ?? "Unknown error")
-                    return
-            }
-            
-            guard (200 ... 299) ~= response.statusCode else {                    // check for http errors
-                print("statusCode should be 2xx, but is \(response.statusCode)")
-                print("response = \(response)")
-                return
-            }
-            
-//            let responseString = String(data: data, encoding: .utf8)
-//            print("responseString = \(responseString)")
-            
-            guard let records = self.parse(data, entity: [Record].self) else { return }
-            
-            let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Record")
-            guard let context = self.persistentContainer?.viewContext else {
-                return
-            }
-            //request.predicate = NSPredicate(format: "age = %@", "12")
-            request.returnsObjectsAsFaults = false
-            do {
-                let result = try context.fetch(request)
-                for data in result as! [Record] {
-                    print(data.created_at)
-                }
-                
-            } catch {
-                
-                print("Failed")
-            }
-            
-            
         }
         
         task.resume()
     }
     
-    
-    func parse<T: Decodable> (_ jsonData: Data, entity: T.Type) -> T? {
-        do {
-            guard let codingUserInfoKeyManagedObjectContext = CodingUserInfoKey.managedObjectContext else {
-                fatalError("Failed to retrieve context")
-            }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        if let navVC = self.navigationController as? SetupViewController {
+            self.persistentContainer = navVC.persistentContainer
             
-            // Parse JSON data
-            guard let managedObjectContext = persistentContainer?.viewContext else {
-                return nil
+            if self.persistentContainer != nil
+            {
+                self.recordController = RecordController.init(container: self.persistentContainer!)
             }
-          
-            let decoder = JSONDecoder()
-            decoder.userInfo[codingUserInfoKeyManagedObjectContext] = managedObjectContext
-            let entities = try decoder.decode(entity, from: jsonData)
-            try managedObjectContext.save()
-            
-            return entities
-        } catch let error {
-            print(error)
-            return nil
         }
+        
+        progressSteps.append(ProgressStep.init(text: "Fetching list of Nest devices", animating: true, done: false))
+        tableView.reloadData()
+    }
+    
+    @IBAction func onButtonDone(_ sender: Any) {
+        self.navigationController?.dismiss(animated: true, completion: nil)
+    }
+    
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return progressSteps.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "PROGRESS_CELL") as! SetupProgressCellTableViewCell
+        
+        cell.label?.text = progressSteps[indexPath.row].text as String?
+        cell.progressIndicator?.isHidden = progressSteps[indexPath.row].done
+        progressSteps[indexPath.row].animating ? cell.progressIndicator?.startAnimating() : cell.progressIndicator?.stopAnimating()
+        cell.accessoryType = progressSteps[indexPath.row].done ? .checkmark : .none
+        
+//        cell.accessoryType = .checkmark
+        return cell
     }
     
 }

@@ -47,7 +47,12 @@ class AuthorizationViewController: UIViewController, URLSessionTaskDelegate, UIT
         usernameField.resignFirstResponder()
         
         //TODO: Needs to be stored / asked for somewhere
-        let url = URL(string: "http://localhost:3000/users/sign_in")!
+        guard let host = UserDefaults.standard.getHost(),
+            let url = URL(string: host + "/users/sign_in") else
+        {
+            print("Error forming sign in URL")
+            return
+        }
         
         var request = URLRequest(url: url)
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")

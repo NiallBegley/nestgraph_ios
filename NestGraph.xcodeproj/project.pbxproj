@@ -7,8 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		39101F3522F3BAD0000C185A /* RecordController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39101F3422F3BAD0000C185A /* RecordController.swift */; };
 		39129B5122EFE3B8004953EF /* CodingUserInfoKey+Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39129B5022EFE3B8004953EF /* CodingUserInfoKey+Util.swift */; };
 		39129B5322EFEF9C004953EF /* Record.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39129B5222EFEF9C004953EF /* Record.swift */; };
+		3915BE0322F144F6004AD6E9 /* SetupProgressCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3915BE0222F144F6004AD6E9 /* SetupProgressCellTableViewCell.swift */; };
 		3915EA8D22EE0BDE00A4AC1F /* FirstTimeDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3915EA8C22EE0BDE00A4AC1F /* FirstTimeDataViewController.swift */; };
 		3915EA8F22EE152200A4AC1F /* SetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3915EA8E22EE152200A4AC1F /* SetupViewController.swift */; };
 		3916A3C422EA613B008ACCF1 /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3916A3C322EA613B008ACCF1 /* Device.swift */; };
@@ -24,7 +26,6 @@
 		3934601E22DC998D00EE35B9 /* NestGraphTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3934601D22DC998D00EE35B9 /* NestGraphTests.swift */; };
 		3934602922DC998D00EE35B9 /* NestGraphUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3934602822DC998D00EE35B9 /* NestGraphUITests.swift */; };
 		393F140522DCD6A100908BA1 /* AuthorizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393F140422DCD6A100908BA1 /* AuthorizationViewController.swift */; };
-		393F140822DCDB0C00908BA1 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 393F140722DCDB0C00908BA1 /* WebKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,8 +46,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		39101F3422F3BAD0000C185A /* RecordController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordController.swift; sourceTree = "<group>"; };
 		39129B5022EFE3B8004953EF /* CodingUserInfoKey+Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodingUserInfoKey+Util.swift"; sourceTree = "<group>"; };
 		39129B5222EFEF9C004953EF /* Record.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Record.swift; sourceTree = "<group>"; };
+		3915BE0222F144F6004AD6E9 /* SetupProgressCellTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupProgressCellTableViewCell.swift; sourceTree = "<group>"; };
 		3915EA8C22EE0BDE00A4AC1F /* FirstTimeDataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstTimeDataViewController.swift; sourceTree = "<group>"; };
 		3915EA8E22EE152200A4AC1F /* SetupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupViewController.swift; sourceTree = "<group>"; };
 		3916A3C322EA613B008ACCF1 /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
@@ -76,7 +79,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				393F140822DCDB0C00908BA1 /* WebKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -106,11 +108,20 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		3915BE0122F144B0004AD6E9 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				3915BE0222F144F6004AD6E9 /* SetupProgressCellTableViewCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		3916A3C222EA6116008ACCF1 /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				3916A3C322EA613B008ACCF1 /* Device.swift */,
 				39129B5222EFEF9C004953EF /* Record.swift */,
+				39101F3422F3BAD0000C185A /* RecordController.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -118,6 +129,7 @@
 		391A563822EB1EE90018C08A /* Setup */ = {
 			isa = PBXGroup;
 			children = (
+				3915BE0122F144B0004AD6E9 /* Cells */,
 				391A563922EB1F090018C08A /* InstanceChooserViewController.swift */,
 				393F140422DCD6A100908BA1 /* AuthorizationViewController.swift */,
 				3915EA8C22EE0BDE00A4AC1F /* FirstTimeDataViewController.swift */,
@@ -324,6 +336,8 @@
 			files = (
 				393F140522DCD6A100908BA1 /* AuthorizationViewController.swift in Sources */,
 				3926651E22E87DD800C08E68 /* UserDefaults.swift in Sources */,
+				39101F3522F3BAD0000C185A /* RecordController.swift in Sources */,
+				3915BE0322F144F6004AD6E9 /* SetupProgressCellTableViewCell.swift in Sources */,
 				3934600822DC998C00EE35B9 /* ViewController.swift in Sources */,
 				3916A3C422EA613B008ACCF1 /* Device.swift in Sources */,
 				39129B5122EFE3B8004953EF /* CodingUserInfoKey+Util.swift in Sources */,
@@ -518,7 +532,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.nbegley.NestGraph;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -536,7 +550,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.nbegley.NestGraph;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
