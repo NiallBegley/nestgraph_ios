@@ -7,30 +7,31 @@
 //
 
 import UIKit
+import KeychainSwift
 
-extension UserDefaults {
+extension KeychainSwift {
 
-    enum UserDefaultsKeys : String {
+    enum KeychainKeys : String {
         case authtoken
         case host
     }
     
     func setAuthToken(value: String)
     {
-        set(value, forKey:UserDefaultsKeys.authtoken.rawValue)
+        set(value, forKey: KeychainKeys.authtoken.rawValue)
     }
     
     func getAuthToken() -> String? {
-        return string(forKey: UserDefaultsKeys.authtoken.rawValue)
+        return get(KeychainKeys.authtoken.rawValue)
     }
     
     func setHost(value: String)
     {
-        set(value, forKey:UserDefaultsKeys.host.rawValue)
+        set(value, forKey:KeychainKeys.host.rawValue)
     }
     
     func getHost() -> String? {
-        return string(forKey: UserDefaultsKeys.host.rawValue)
+        return get(KeychainKeys.host.rawValue)
     }
     
 }

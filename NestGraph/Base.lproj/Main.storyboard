@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina6_1" orientation="portrait">
+    <device id="retina6_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -71,7 +71,7 @@
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="URL" textContentType="url"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter NestGraph Instance URL" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ozH-XX-0dP">
-                                <rect key="frame" x="90.5" y="389.5" width="233.5" height="20.5"/>
+                                <rect key="frame" x="90" y="389.66666666666669" width="234" height="20.333333333333314"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -85,7 +85,7 @@
                                 </connections>
                             </button>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="URL could not be reached" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1mF-5P-KYD">
-                                <rect key="frame" x="58" y="492" width="314" height="14.5"/>
+                                <rect key="frame" x="58" y="492" width="314" height="14.666666666666686"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" red="1" green="0.0" blue="0.012087071650988435" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -128,13 +128,13 @@
         <!--Authorization View Controller-->
         <scene sceneID="jka-Nq-svH">
             <objects>
-                <viewController id="dn4-Wb-huc" customClass="AuthorizationViewController" customModule="NestGraph" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AUTHORIZATION_VIEW_CONTROLLER" id="dn4-Wb-huc" customClass="AuthorizationViewController" customModule="NestGraph" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="3zo-vg-9ul">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="69" translatesAutoresizingMaskIntoConstraints="NO" id="bXm-eX-6U6">
-                                <rect key="frame" x="50" y="410.5" width="314" height="129"/>
+                                <rect key="frame" x="50" y="410.66666666666669" width="314" height="129.00000000000006"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FP1-am-Xti">
                                         <rect key="frame" x="0.0" y="0.0" width="314" height="30"/>
@@ -164,26 +164,36 @@
                                 </constraints>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign In to NestGraph" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UvG-d6-kbT">
-                                <rect key="frame" x="127.5" y="340" width="159" height="20.5"/>
+                                <rect key="frame" x="127.66666666666669" y="340.33333333333331" width="159" height="20.333333333333314"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bHu-QA-y8r">
-                                <rect key="frame" x="183.5" y="568" width="47" height="30"/>
+                                <rect key="frame" x="183.66666666666666" y="568" width="47" height="30"/>
                                 <state key="normal" title="Sign In"/>
                                 <connections>
                                     <action selector="buttonClickedSignIn:" destination="dn4-Wb-huc" eventType="touchUpInside" id="d9S-lK-Acz"/>
                                 </connections>
                             </button>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your credentials have expired.  Please log in again" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7DK-Ig-qSZ">
+                                <rect key="frame" x="17" y="108" width="380" height="20.333333333333343"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="0.0" blue="0.01208707165" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="7DK-Ig-qSZ" firstAttribute="top" secondItem="rYq-uc-RWQ" secondAttribute="top" constant="20" id="0RB-fc-p2j"/>
+                            <constraint firstItem="7DK-Ig-qSZ" firstAttribute="centerX" secondItem="rYq-uc-RWQ" secondAttribute="centerX" id="1Z1-Bh-6ck"/>
                             <constraint firstItem="bXm-eX-6U6" firstAttribute="top" secondItem="UvG-d6-kbT" secondAttribute="bottom" constant="50" id="46n-3O-ELj"/>
+                            <constraint firstItem="rYq-uc-RWQ" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="7DK-Ig-qSZ" secondAttribute="trailing" constant="5" id="Gf0-MT-lbP"/>
                             <constraint firstItem="bHu-QA-y8r" firstAttribute="top" secondItem="bXm-eX-6U6" secondAttribute="bottom" constant="28.5" id="KHw-Sg-Ypd"/>
                             <constraint firstItem="bHu-QA-y8r" firstAttribute="centerX" secondItem="rYq-uc-RWQ" secondAttribute="centerX" id="QGG-cv-slT"/>
                             <constraint firstItem="bXm-eX-6U6" firstAttribute="centerX" secondItem="rYq-uc-RWQ" secondAttribute="centerX" id="b1a-jn-0qA"/>
                             <constraint firstItem="UvG-d6-kbT" firstAttribute="centerX" secondItem="rYq-uc-RWQ" secondAttribute="centerX" id="hEx-ub-cGE"/>
+                            <constraint firstItem="7DK-Ig-qSZ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="rYq-uc-RWQ" secondAttribute="leading" constant="5" id="heL-Lr-Yyu"/>
                             <constraint firstItem="bXm-eX-6U6" firstAttribute="leading" secondItem="rYq-uc-RWQ" secondAttribute="leading" constant="50" id="jUV-rP-pa4"/>
                             <constraint firstItem="rYq-uc-RWQ" firstAttribute="trailing" secondItem="bXm-eX-6U6" secondAttribute="trailing" constant="50" id="nt5-O1-zZ9"/>
                             <constraint firstItem="bXm-eX-6U6" firstAttribute="centerY" secondItem="rYq-uc-RWQ" secondAttribute="centerY" id="yZY-qF-G33"/>
@@ -192,6 +202,7 @@
                     </view>
                     <connections>
                         <outlet property="passwordField" destination="J87-ZX-h31" id="w3W-LY-ETh"/>
+                        <outlet property="reauthorizeLabel" destination="7DK-Ig-qSZ" id="fQo-60-izB"/>
                         <outlet property="signInButton" destination="bHu-QA-y8r" id="iBN-fI-6uX"/>
                         <outlet property="usernameField" destination="FP1-am-Xti" id="0u1-8a-RW6"/>
                         <segue destination="3hS-mF-hFS" kind="show" identifier="FIRST_TIME_DATA_SEGUE" id="Y4Y-yQ-Mou"/>
@@ -224,13 +235,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="93c-j6-6kK">
-                                                    <rect key="frame" x="25" y="11.5" width="42" height="21"/>
+                                                    <rect key="frame" x="21" y="11.666666666666664" width="42" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="zdH-4E-LbF">
-                                                    <rect key="frame" x="334" y="12" width="20" height="20"/>
+                                                    <rect key="frame" x="240" y="12" width="20" height="20"/>
                                                 </activityIndicatorView>
                                             </subviews>
                                             <constraints>
@@ -252,7 +263,7 @@
                                 </connections>
                             </tableView>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fn9-nc-gSL">
-                                <rect key="frame" x="188.5" y="603" width="37" height="30"/>
+                                <rect key="frame" x="188.66666666666666" y="603" width="37" height="30"/>
                                 <state key="normal" title="Done"/>
                                 <connections>
                                     <action selector="onButtonDone:" destination="3hS-mF-hFS" eventType="touchUpInside" id="KcL-WL-egq"/>

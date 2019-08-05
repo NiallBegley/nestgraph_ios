@@ -9,9 +9,10 @@
 
 import UIKit
 import CoreData
+import KeychainSwift
 
-class ViewController: UIViewController, URLSessionTaskDelegate{
-
+class ViewController: UIViewController, URLSessionTaskDelegate, RecordControllerDelegate{
+   
     var authorization: String?
     var persistentContainer: NSPersistentContainer?
     let AUTHORIZATION_SEGUE = "AUTHORIZATION_SEGUE"
@@ -24,6 +25,7 @@ class ViewController: UIViewController, URLSessionTaskDelegate{
         
         if persistentContainer != nil {
             recordController = RecordController.init(container: persistentContainer!)
+            recordController?.delegate = self
         } else {
             fatalError()
         }
@@ -32,7 +34,7 @@ class ViewController: UIViewController, URLSessionTaskDelegate{
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        if UserDefaults.standard.getAuthToken() == nil
+        if KeychainSwift().getAuthToken() == nil
         {
             DispatchQueue.main.async(){
                 self.performSegue(withIdentifier:self.AUTHORIZATION_SEGUE, sender: self)
@@ -40,7 +42,6 @@ class ViewController: UIViewController, URLSessionTaskDelegate{
         }
         else
         {
-            
             extractData()
         }
     }
@@ -69,15 +70,28 @@ class ViewController: UIViewController, URLSessionTaskDelegate{
         }
     }
     
-    @IBAction func buttonClickedRefresh(_ sender: Any) {
-        guard let devices = recordController?.getDevices() else { return }
-        let handler: () -> Void = {
+    func refresh() {
+        recordController?.fetchRecordsForAllDevices {
             self.extractData()
         }
-        for (index, device) in devices.enumerated() {
-            recordController?.fetchRecordsFor(device: device, completionHandler: index == devices.count - 1 ? handler : { () -> Void in return})
-        }
+    }
+    
+    @IBAction func buttonClickedRefresh(_ sender: Any) {
+       self.refresh()
         
     }
+    
+    func failedAuthorization() {
+         guard let authVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AUTHORIZATION_VIEW_CONTROLLER") as? AuthorizationViewController else { return }
+        authVC.reauthorization = true
+        
+        DispatchQueue.main.async() {
+            self.present(authVC, animated: true, completion:  {
+                self.refresh()
+            })
+        }
+    }
+    
+
 }
 

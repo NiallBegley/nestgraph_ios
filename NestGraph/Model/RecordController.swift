@@ -8,10 +8,16 @@
 
 import UIKit
 import CoreData
+import KeychainSwift
+
+protocol RecordControllerDelegate {
+    func failedAuthorization()
+}
 
 class RecordController: NSObject {
 
     var persistentContainer: NSPersistentContainer?
+    var delegate: RecordControllerDelegate?
     
     init(container: NSPersistentContainer) {
         self.persistentContainer = container
@@ -37,9 +43,11 @@ class RecordController: NSObject {
         return []
     }
     
-    func fetchRecordsFor(device: Device, completionHandler: @escaping () -> Void)
+    func fetchRecordsFor(device: Device, completionHandler: @escaping (_ authError: Bool) -> Void)
     {
-        guard let host = UserDefaults.standard.getHost(),
+        print("Fetching records for device \(device.name ?? "#NAME NOT FOUND#")...")
+        
+        guard let host = KeychainSwift().getHost(),
             var url = URLComponents(string: host + "/records/api_endpoint.json") else
         {
             print("Error forming records endpoint URL")
@@ -62,7 +70,7 @@ class RecordController: NSObject {
         ]
         
         var request = URLRequest(url: url.url!)
-        request.setValue(UserDefaults.standard.getAuthToken(), forHTTPHeaderField: "Authorization")
+        request.setValue(KeychainSwift().getAuthToken(), forHTTPHeaderField: "Authorization")
         request.httpMethod = "GET"
         
         //TODO: Needs to handle failures
@@ -77,6 +85,12 @@ class RecordController: NSObject {
             guard (200 ... 299) ~= response.statusCode else {                    // check for http errors
                 print("statusCode should be 2xx, but is \(response.statusCode)")
                 print("response = \(response)")
+                
+                if response.statusCode == 401
+                {
+                    print("Failed authorization")
+                   completionHandler(true)
+                }
                 return
             }
             
@@ -84,13 +98,38 @@ class RecordController: NSObject {
             
             device.mutableSetValue(forKey: "records").addObjects(from: records)
             
-            print("Found \(records.count) records for device " + device.device_id!)
+            print("Fetched \(records.count) records for device \(device.name ?? "#DEVICE NAME NOT FOUND#")")
             
-            completionHandler()
+            completionHandler(false)
             
         }
         
         task.resume()
+    }
+    
+    func fetchRecordsForAllDevices(completionHandler: @escaping () -> Void) {
+        let group = DispatchGroup()
+        let devices = getDevices()
+        var error = false
+        
+        let handler: (_ authError : Bool) -> Void = { (_ authError : Bool) in
+            error = authError
+            group.leave()
+        }
+        
+        for device in devices {
+            group.enter()
+            fetchRecordsFor(device: device, completionHandler: handler)
+        }
+        
+        //Prevent the failedAuthorization delegate call from being called 1 time for every Device
+        group.notify(queue: DispatchQueue.global(qos: .background)) {
+            if error {
+                self.delegate?.failedAuthorization()
+            }
+            
+            completionHandler()
+        }
     }
     
     func parse<T: Decodable> (_ jsonData: Data, entity: T.Type) -> T? {

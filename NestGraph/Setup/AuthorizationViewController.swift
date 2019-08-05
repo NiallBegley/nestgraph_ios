@@ -8,23 +8,20 @@
 
 import UIKit
 import CoreData
+import KeychainSwift
 
 class AuthorizationViewController: UIViewController, URLSessionTaskDelegate, UITextFieldDelegate{
-
+    
+    @IBOutlet weak var reauthorizeLabel: UILabel!
     @IBOutlet weak var usernameField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var signInButton: UIButton!
     let FIRST_TIME_DATA_SEGUE = "FIRST_TIME_DATA_SEGUE"
+    var reauthorization = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        if UserDefaults.standard.getAuthToken() != nil
-        {
-            DispatchQueue.main.async(){
-                self.performSegue(withIdentifier:self.FIRST_TIME_DATA_SEGUE, sender: self)
-            }
-        }
+        reauthorizeLabel.isHidden = !reauthorization
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -47,7 +44,7 @@ class AuthorizationViewController: UIViewController, URLSessionTaskDelegate, UIT
         usernameField.resignFirstResponder()
         
         //TODO: Needs to be stored / asked for somewhere
-        guard let host = UserDefaults.standard.getHost(),
+        guard let host = KeychainSwift().getHost(),
             let url = URL(string: host + "/users/sign_in") else
         {
             print("Error forming sign in URL")
@@ -103,11 +100,17 @@ class AuthorizationViewController: UIViewController, URLSessionTaskDelegate, UIT
         print(response.allHeaderFields)
         if let authtoken = response.allHeaderFields["Authorization"] as? String
         {
-            //TODO: This needs to be stored in the keychain
-            UserDefaults.standard.setAuthToken(value: authtoken )
+            KeychainSwift().setAuthToken(value: authtoken )
             
             DispatchQueue.main.async(){
-                self.performSegue(withIdentifier: self.FIRST_TIME_DATA_SEGUE, sender: nil)
+                if !self.reauthorization
+                {
+                    self.performSegue(withIdentifier: self.FIRST_TIME_DATA_SEGUE, sender: nil)
+                }
+                else
+                {
+                    self.dismiss(animated: true, completion: nil)
+                }
             }
         }
     }

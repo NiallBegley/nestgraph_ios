@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import KeychainSwift
 
 struct ProgressStep {
     let text : NSString?
@@ -21,7 +22,7 @@ struct ProgressStep {
     }
 }
 
-class FirstTimeDataViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class FirstTimeDataViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, RecordControllerDelegate {
     @IBOutlet weak var tableView: UITableView!
     
     @IBOutlet weak var doneButton: UIButton!
@@ -31,23 +32,14 @@ class FirstTimeDataViewController: UIViewController, UITableViewDelegate, UITabl
     
     override func viewDidAppear(_ animated: Bool) {
         
-        guard let host = UserDefaults.standard.getHost(),
+        guard let host = KeychainSwift().getHost(),
             let url = URL(string: host + "/devices/api_endpoint.json") else {
                 print("Error forming URL for devices endpoint")
                 return
         }
         
-        let handler: () -> Void = {
-            DispatchQueue.main.async() {
-                self.progressSteps[self.progressSteps.count-1].done = true
-                self.tableView.reloadData()
-                
-                self.doneButton.isHidden = false
-            }
-        }
-        
         var request = URLRequest(url: url)
-        request.setValue(UserDefaults.standard.getAuthToken(), forHTTPHeaderField: "Authorization")
+        request.setValue(KeychainSwift().getAuthToken(), forHTTPHeaderField: "Authorization")
         request.httpMethod = "GET"
         
         //TODO: Needs to handle failures
@@ -82,9 +74,13 @@ class FirstTimeDataViewController: UIViewController, UITableViewDelegate, UITabl
                 self.tableView.reloadData()
             }
             
-            //TODO: Thread safety
-            for device in devices {
-                self.recordController?.fetchRecordsFor(device: device, completionHandler: handler)
+            self.recordController?.fetchRecordsForAllDevices {
+                DispatchQueue.main.async() {
+                    self.progressSteps[self.progressSteps.count-1].done = true
+                    self.tableView.reloadData()
+                    
+                    self.doneButton.isHidden = false
+                }
             }
         }
         
@@ -100,6 +96,7 @@ class FirstTimeDataViewController: UIViewController, UITableViewDelegate, UITabl
             if self.persistentContainer != nil
             {
                 self.recordController = RecordController.init(container: self.persistentContainer!)
+                self.recordController?.delegate = self
             }
         }
         
@@ -128,6 +125,10 @@ class FirstTimeDataViewController: UIViewController, UITableViewDelegate, UITabl
         
 //        cell.accessoryType = .checkmark
         return cell
+    }
+    
+    func failedAuthorization() {
+        self.navigationController?.popViewController(animated: true)
     }
     
 }

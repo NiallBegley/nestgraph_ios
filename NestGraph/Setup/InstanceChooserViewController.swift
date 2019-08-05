@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import KeychainSwift
 
 class InstanceChooserViewController: UIViewController {
 
@@ -20,7 +21,7 @@ class InstanceChooserViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if UserDefaults.standard.getHost() != nil
+        if KeychainSwift().getHost() != nil
         {
             DispatchQueue.main.async(){
                 self.performSegue(withIdentifier:self.VERIFY_URL_SEGUE, sender: self)
@@ -47,7 +48,7 @@ class InstanceChooserViewController: UIViewController {
             
             if (200 ... 299).contains(httpResponse.statusCode)
             {
-                UserDefaults.standard.setHost(value: urlString)
+                KeychainSwift().setHost(value: urlString)
                 DispatchQueue.main.async(){
                     self.toggleIndicator()
                     self.performSegue(withIdentifier:self.VERIFY_URL_SEGUE, sender: self)
