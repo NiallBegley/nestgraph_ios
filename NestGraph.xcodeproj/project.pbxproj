@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		011DFD17A3C6CC99D77E628F /* Pods_NestGraphTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF88AA573061492EA9F7FB77 /* Pods_NestGraphTests.framework */; };
+		355CB0F3B30E11D2F3FED17B /* Pods_NestGraph.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9952E5B26A1E627534DA48AD /* Pods_NestGraph.framework */; };
 		39101F3522F3BAD0000C185A /* RecordController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39101F3422F3BAD0000C185A /* RecordController.swift */; };
 		39129B5122EFE3B8004953EF /* CodingUserInfoKey+Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39129B5022EFE3B8004953EF /* CodingUserInfoKey+Util.swift */; };
 		39129B5322EFEF9C004953EF /* Record.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39129B5222EFEF9C004953EF /* Record.swift */; };
@@ -26,6 +28,7 @@
 		3934601E22DC998D00EE35B9 /* NestGraphTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3934601D22DC998D00EE35B9 /* NestGraphTests.swift */; };
 		3934602922DC998D00EE35B9 /* NestGraphUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3934602822DC998D00EE35B9 /* NestGraphUITests.swift */; };
 		393F140522DCD6A100908BA1 /* AuthorizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393F140422DCD6A100908BA1 /* AuthorizationViewController.swift */; };
+		ECCD9C070F592B3AAE3A88F6 /* Pods_NestGraphUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 71EB574EDA00E1BEDD04746A /* Pods_NestGraphUITests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +49,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		06FA18A9258DFAA3C0CDF174 /* Pods-NestGraph.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NestGraph.debug.xcconfig"; path = "Target Support Files/Pods-NestGraph/Pods-NestGraph.debug.xcconfig"; sourceTree = "<group>"; };
+		088B523E13E1020588165DAF /* Pods-NestGraphUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NestGraphUITests.debug.xcconfig"; path = "Target Support Files/Pods-NestGraphUITests/Pods-NestGraphUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		1154FBB2FE99730127049755 /* Pods-NestGraph.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NestGraph.release.xcconfig"; path = "Target Support Files/Pods-NestGraph/Pods-NestGraph.release.xcconfig"; sourceTree = "<group>"; };
+		32445098C696695ED8DD32E8 /* Pods-NestGraphUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NestGraphUITests.release.xcconfig"; path = "Target Support Files/Pods-NestGraphUITests/Pods-NestGraphUITests.release.xcconfig"; sourceTree = "<group>"; };
 		39101F3422F3BAD0000C185A /* RecordController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordController.swift; sourceTree = "<group>"; };
 		39129B5022EFE3B8004953EF /* CodingUserInfoKey+Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodingUserInfoKey+Util.swift"; sourceTree = "<group>"; };
 		39129B5222EFEF9C004953EF /* Record.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Record.swift; sourceTree = "<group>"; };
@@ -72,6 +79,11 @@
 		3934602A22DC998D00EE35B9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		393F140422DCD6A100908BA1 /* AuthorizationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationViewController.swift; sourceTree = "<group>"; };
 		393F140722DCDB0C00908BA1 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		4A43C6E80368A22F451B5194 /* Pods-NestGraphTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NestGraphTests.debug.xcconfig"; path = "Target Support Files/Pods-NestGraphTests/Pods-NestGraphTests.debug.xcconfig"; sourceTree = "<group>"; };
+		71EB574EDA00E1BEDD04746A /* Pods_NestGraphUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NestGraphUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9952E5B26A1E627534DA48AD /* Pods_NestGraph.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NestGraph.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AF88AA573061492EA9F7FB77 /* Pods_NestGraphTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NestGraphTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B6376C387E5EAA5F7B2F54C0 /* Pods-NestGraphTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NestGraphTests.release.xcconfig"; path = "Target Support Files/Pods-NestGraphTests/Pods-NestGraphTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +91,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				355CB0F3B30E11D2F3FED17B /* Pods_NestGraph.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -86,6 +99,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				011DFD17A3C6CC99D77E628F /* Pods_NestGraphTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -93,6 +107,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ECCD9C070F592B3AAE3A88F6 /* Pods_NestGraphUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -146,6 +161,7 @@
 				3934602722DC998D00EE35B9 /* NestGraphUITests */,
 				3934600322DC998C00EE35B9 /* Products */,
 				393F140622DCDB0C00908BA1 /* Frameworks */,
+				56D0BC5DAB45C163B3C47840 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -199,8 +215,25 @@
 			isa = PBXGroup;
 			children = (
 				393F140722DCDB0C00908BA1 /* WebKit.framework */,
+				9952E5B26A1E627534DA48AD /* Pods_NestGraph.framework */,
+				AF88AA573061492EA9F7FB77 /* Pods_NestGraphTests.framework */,
+				71EB574EDA00E1BEDD04746A /* Pods_NestGraphUITests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		56D0BC5DAB45C163B3C47840 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				06FA18A9258DFAA3C0CDF174 /* Pods-NestGraph.debug.xcconfig */,
+				1154FBB2FE99730127049755 /* Pods-NestGraph.release.xcconfig */,
+				4A43C6E80368A22F451B5194 /* Pods-NestGraphTests.debug.xcconfig */,
+				B6376C387E5EAA5F7B2F54C0 /* Pods-NestGraphTests.release.xcconfig */,
+				088B523E13E1020588165DAF /* Pods-NestGraphUITests.debug.xcconfig */,
+				32445098C696695ED8DD32E8 /* Pods-NestGraphUITests.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -210,9 +243,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3934602D22DC998D00EE35B9 /* Build configuration list for PBXNativeTarget "NestGraph" */;
 			buildPhases = (
+				BF8D84691F25DEA5DF6FF133 /* [CP] Check Pods Manifest.lock */,
 				39345FFE22DC998C00EE35B9 /* Sources */,
 				39345FFF22DC998C00EE35B9 /* Frameworks */,
 				3934600022DC998C00EE35B9 /* Resources */,
+				62D77A9E532F52279948B16B /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -227,6 +262,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3934603022DC998D00EE35B9 /* Build configuration list for PBXNativeTarget "NestGraphTests" */;
 			buildPhases = (
+				42848AF1F0A4AA3465DF9563 /* [CP] Check Pods Manifest.lock */,
 				3934601522DC998D00EE35B9 /* Sources */,
 				3934601622DC998D00EE35B9 /* Frameworks */,
 				3934601722DC998D00EE35B9 /* Resources */,
@@ -245,6 +281,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3934603322DC998D00EE35B9 /* Build configuration list for PBXNativeTarget "NestGraphUITests" */;
 			buildPhases = (
+				4058281302D7B744179EA1B9 /* [CP] Check Pods Manifest.lock */,
 				3934602022DC998D00EE35B9 /* Sources */,
 				3934602122DC998D00EE35B9 /* Frameworks */,
 				3934602222DC998D00EE35B9 /* Resources */,
@@ -328,6 +365,92 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		4058281302D7B744179EA1B9 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-NestGraphUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		42848AF1F0A4AA3465DF9563 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-NestGraphTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		62D77A9E532F52279948B16B /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-NestGraph/Pods-NestGraph-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-NestGraph/Pods-NestGraph-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-NestGraph/Pods-NestGraph-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BF8D84691F25DEA5DF6FF133 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-NestGraph-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		39345FFE22DC998C00EE35B9 /* Sources */ = {
@@ -520,6 +643,7 @@
 		};
 		3934602E22DC998D00EE35B9 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 06FA18A9258DFAA3C0CDF174 /* Pods-NestGraph.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -538,6 +662,7 @@
 		};
 		3934602F22DC998D00EE35B9 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1154FBB2FE99730127049755 /* Pods-NestGraph.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -556,6 +681,7 @@
 		};
 		3934603122DC998D00EE35B9 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4A43C6E80368A22F451B5194 /* Pods-NestGraphTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -577,6 +703,7 @@
 		};
 		3934603222DC998D00EE35B9 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B6376C387E5EAA5F7B2F54C0 /* Pods-NestGraphTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -598,6 +725,7 @@
 		};
 		3934603422DC998D00EE35B9 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 088B523E13E1020588165DAF /* Pods-NestGraphUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -618,6 +746,7 @@
 		};
 		3934603522DC998D00EE35B9 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 32445098C696695ED8DD32E8 /* Pods-NestGraphUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
