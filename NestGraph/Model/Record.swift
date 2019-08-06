@@ -12,6 +12,7 @@ import CoreData
 class Record:  NSManagedObject, Codable {
     
     enum CodingKeys: String, CodingKey {
+        case id
         case device_id
         case internal_temp
         case external_temp
@@ -23,6 +24,7 @@ class Record:  NSManagedObject, Codable {
         case is_heating
     }
     
+    @NSManaged var id : Int
     @NSManaged var device_id : String?
     @NSManaged var  internal_temp : Int
     @NSManaged var  external_temp : Float
@@ -44,6 +46,7 @@ class Record:  NSManagedObject, Codable {
         self.init(entity: entity, insertInto: managedObjectContext)
         
         let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.id = try container.decodeIfPresent(Int.self, forKey: .id) ?? 0
         self.device_id = try container.decodeIfPresent(String.self, forKey: .device_id)
         self.internal_temp = try container.decodeIfPresent(Int.self, forKey: .internal_temp) ?? 0
         self.external_temp = try container.decodeIfPresent(Float.self, forKey: .external_temp) ?? 0.0
