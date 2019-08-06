@@ -25,11 +25,20 @@
                                     <action selector="buttonClickedRefresh:" destination="BYZ-38-t0r" eventType="touchUpInside" id="vsJ-DS-ls0"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jnb-Wo-7L2">
+                                <rect key="frame" x="20" y="64" width="41" height="30"/>
+                                <state key="normal" title="Setup"/>
+                                <connections>
+                                    <action selector="buttonClickedSetup:" destination="BYZ-38-t0r" eventType="touchUpInside" id="U7d-LC-qX0"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="Jnb-Wo-7L2" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="2Kf-yo-uqM"/>
                             <constraint firstItem="ta8-rB-6po" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="65l-y4-qWM"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="ta8-rB-6po" secondAttribute="trailing" constant="20" id="Rt0-Hb-RZ2"/>
+                            <constraint firstItem="Jnb-Wo-7L2" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="wz3-C0-eAX"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -235,13 +244,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="93c-j6-6kK">
-                                                    <rect key="frame" x="21" y="11.666666666666664" width="42" height="21"/>
+                                                    <rect key="frame" x="25" y="11.666666666666664" width="42" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="zdH-4E-LbF">
-                                                    <rect key="frame" x="240" y="12" width="20" height="20"/>
+                                                    <rect key="frame" x="334" y="12" width="20" height="20"/>
                                                 </activityIndicatorView>
                                             </subviews>
                                             <constraints>

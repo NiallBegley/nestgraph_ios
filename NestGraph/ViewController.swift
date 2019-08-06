@@ -49,14 +49,13 @@ class ViewController: UIViewController, URLSessionTaskDelegate, RecordController
     func extractData() {
         guard let devices = recordController?.getDevices() else { return }
         
+        
         for device in devices {
-            let records = device.mutableSetValue(forKey: "records")
-            print("Found \(records.count) records for device")
             
             guard let lowest = recordController?.lowestTemp(forDevice: device),
                 let lowDate = lowest.created_at else { return }
             let formatter = DateFormatter.HHmmss
-            print("\(device.name) lowest internal temp: \(lowest.internal_temp) degrees at \(formatter.string(from: lowDate))")
+            print("\(device.name!) lowest internal temp: \(lowest.internal_temp) degrees at \(formatter.string(from: lowDate))")
         }
     }
     
@@ -71,7 +70,7 @@ class ViewController: UIViewController, URLSessionTaskDelegate, RecordController
     }
     
     func refresh() {
-        recordController?.fetchRecordsForAllDevices {
+        recordController?.refreshRecordsForAllDevices {
             self.extractData()
         }
     }
@@ -79,6 +78,12 @@ class ViewController: UIViewController, URLSessionTaskDelegate, RecordController
     @IBAction func buttonClickedRefresh(_ sender: Any) {
        self.refresh()
         
+    }
+    
+    @IBAction func buttonClickedSetup(_ sender: Any) {
+        DispatchQueue.main.async(){
+            self.performSegue(withIdentifier:self.AUTHORIZATION_SEGUE, sender: self)
+        }
     }
     
     func failedAuthorization() {

@@ -74,7 +74,7 @@ class FirstTimeDataViewController: UIViewController, UITableViewDelegate, UITabl
                 self.tableView.reloadData()
             }
             
-            self.recordController?.fetchRecordsForAllDevices {
+            self.recordController?.refreshRecordsForAllDevices {
                 DispatchQueue.main.async() {
                     self.progressSteps[self.progressSteps.count-1].done = true
                     self.tableView.reloadData()

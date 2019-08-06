@@ -43,7 +43,7 @@ class RecordController: NSObject {
         return []
     }
     
-    func fetchRecordsFor(device: Device, completionHandler: @escaping (_ authError: Bool) -> Void)
+    func refreshRecordsFor(device: Device, completionHandler: @escaping (_ authError: Bool) -> Void)
     {
         print("Fetching records for device \(device.name ?? "#NAME NOT FOUND#")...")
         
@@ -96,7 +96,7 @@ class RecordController: NSObject {
             
             guard let records = self.parse(data, entity: [Record].self) else { return }
             
-            device.mutableSetValue(forKey: "records").addObjects(from: records)
+//            device.mutableSetValue(forKey: "records").addObjects(from: records)
             
             print("Fetched \(records.count) records for device \(device.name ?? "#DEVICE NAME NOT FOUND#")")
             
@@ -107,7 +107,7 @@ class RecordController: NSObject {
         task.resume()
     }
     
-    func fetchRecordsForAllDevices(completionHandler: @escaping () -> Void) {
+    func refreshRecordsForAllDevices(completionHandler: @escaping () -> Void) {
         let group = DispatchGroup()
         let devices = getDevices()
         var error = false
@@ -119,7 +119,7 @@ class RecordController: NSObject {
         
         for device in devices {
             group.enter()
-            fetchRecordsFor(device: device, completionHandler: handler)
+            refreshRecordsFor(device: device, completionHandler: handler)
         }
         
         //Prevent the failedAuthorization delegate call from being called 1 time for every Device
@@ -144,7 +144,7 @@ class RecordController: NSObject {
                 return nil
             }
             
-            managedObjectContext.mergePolicy = NSMergePolicy(merge: .overwriteMergePolicyType)
+            managedObjectContext.mergePolicy = NSMergePolicy(merge: .mergeByPropertyObjectTrumpMergePolicyType)
             
             let decoder = JSONDecoder()
             decoder.userInfo[codingUserInfoKeyManagedObjectContext] = managedObjectContext
