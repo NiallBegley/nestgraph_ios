@@ -17,11 +17,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        if let rootVC = window?.rootViewController as? ViewController {
+        if let rootVC = window?.rootViewController as? SummaryNavigationController {
             rootVC.persistentContainer = persistentContainer
         }
         
+        application.setMinimumBackgroundFetchInterval(900)
+        
         return true
+    }
+    
+    func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        
+        let recordController = RecordController.init(container: persistentContainer)
+        
+        recordController.refreshRecordsForAllDevices {
+            
+            //TODO: This needs to be changed so that we actually record how many NEW records were saved on this refresh and pass the correct enum to the completion handler
+            completionHandler(.newData)
+        }
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
