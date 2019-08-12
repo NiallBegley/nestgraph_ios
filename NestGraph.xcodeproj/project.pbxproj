@@ -17,10 +17,12 @@
 		3915EA8F22EE152200A4AC1F /* SetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3915EA8E22EE152200A4AC1F /* SetupViewController.swift */; };
 		3916A3C422EA613B008ACCF1 /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3916A3C322EA613B008ACCF1 /* Device.swift */; };
 		3917726B22F8DEE2004FDEDE /* KeychainSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3917726A22F8DEE2004FDEDE /* KeychainSwift.swift */; };
+		3919CC0023008B58007D48BC /* DeviceSummaryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3919CBFF23008B58007D48BC /* DeviceSummaryTableViewCell.swift */; };
 		391A563A22EB1F090018C08A /* InstanceChooserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 391A563922EB1F090018C08A /* InstanceChooserViewController.swift */; };
+		3920117122FB647C00789769 /* SummaryNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3920117022FB647C00789769 /* SummaryNavigationController.swift */; };
 		3930C52422F0F3C70055AF9B /* DateFormatter+Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3930C52322F0F3C70055AF9B /* DateFormatter+Util.swift */; };
 		3934600622DC998C00EE35B9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3934600522DC998C00EE35B9 /* AppDelegate.swift */; };
-		3934600822DC998C00EE35B9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3934600722DC998C00EE35B9 /* ViewController.swift */; };
+		3934600822DC998C00EE35B9 /* SummaryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3934600722DC998C00EE35B9 /* SummaryTableViewController.swift */; };
 		3934600B22DC998C00EE35B9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3934600922DC998C00EE35B9 /* Main.storyboard */; };
 		3934600E22DC998C00EE35B9 /* NestGraph.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3934600C22DC998C00EE35B9 /* NestGraph.xcdatamodeld */; };
 		3934601022DC998D00EE35B9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3934600F22DC998D00EE35B9 /* Assets.xcassets */; };
@@ -61,11 +63,13 @@
 		3915EA8E22EE152200A4AC1F /* SetupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupViewController.swift; sourceTree = "<group>"; };
 		3916A3C322EA613B008ACCF1 /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
 		3917726A22F8DEE2004FDEDE /* KeychainSwift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainSwift.swift; sourceTree = "<group>"; };
+		3919CBFF23008B58007D48BC /* DeviceSummaryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceSummaryTableViewCell.swift; sourceTree = "<group>"; };
 		391A563922EB1F090018C08A /* InstanceChooserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstanceChooserViewController.swift; sourceTree = "<group>"; };
+		3920117022FB647C00789769 /* SummaryNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryNavigationController.swift; sourceTree = "<group>"; };
 		3930C52322F0F3C70055AF9B /* DateFormatter+Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Util.swift"; sourceTree = "<group>"; };
 		3934600222DC998C00EE35B9 /* NestGraph.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NestGraph.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3934600522DC998C00EE35B9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		3934600722DC998C00EE35B9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		3934600722DC998C00EE35B9 /* SummaryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryTableViewController.swift; sourceTree = "<group>"; };
 		3934600A22DC998C00EE35B9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3934600D22DC998C00EE35B9 /* NestGraph.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = NestGraph.xcdatamodel; sourceTree = "<group>"; };
 		3934600F22DC998D00EE35B9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -183,7 +187,9 @@
 				391A563822EB1EE90018C08A /* Setup */,
 				3916A3C222EA6116008ACCF1 /* Model */,
 				3934600522DC998C00EE35B9 /* AppDelegate.swift */,
-				3934600722DC998C00EE35B9 /* ViewController.swift */,
+				3920117022FB647C00789769 /* SummaryNavigationController.swift */,
+				3934600722DC998C00EE35B9 /* SummaryTableViewController.swift */,
+				3919CBFF23008B58007D48BC /* DeviceSummaryTableViewCell.swift */,
 				3934600922DC998C00EE35B9 /* Main.storyboard */,
 				3934600F22DC998D00EE35B9 /* Assets.xcassets */,
 				3934601122DC998D00EE35B9 /* LaunchScreen.storyboard */,
@@ -462,9 +468,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				393F140522DCD6A100908BA1 /* AuthorizationViewController.swift in Sources */,
+				3919CC0023008B58007D48BC /* DeviceSummaryTableViewCell.swift in Sources */,
 				39101F3522F3BAD0000C185A /* RecordController.swift in Sources */,
 				3915BE0322F144F6004AD6E9 /* SetupProgressCellTableViewCell.swift in Sources */,
-				3934600822DC998C00EE35B9 /* ViewController.swift in Sources */,
+				3934600822DC998C00EE35B9 /* SummaryTableViewController.swift in Sources */,
 				3916A3C422EA613B008ACCF1 /* Device.swift in Sources */,
 				39129B5122EFE3B8004953EF /* CodingUserInfoKey+Util.swift in Sources */,
 				3915EA8D22EE0BDE00A4AC1F /* FirstTimeDataViewController.swift in Sources */,
@@ -473,6 +480,7 @@
 				3934600622DC998C00EE35B9 /* AppDelegate.swift in Sources */,
 				391A563A22EB1F090018C08A /* InstanceChooserViewController.swift in Sources */,
 				3917726B22F8DEE2004FDEDE /* KeychainSwift.swift in Sources */,
+				3920117122FB647C00789769 /* SummaryNavigationController.swift in Sources */,
 				3915EA8F22EE152200A4AC1F /* SetupViewController.swift in Sources */,
 				3934600E22DC998C00EE35B9 /* NestGraph.xcdatamodeld in Sources */,
 			);

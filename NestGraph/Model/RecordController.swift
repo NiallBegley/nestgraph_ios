@@ -158,19 +158,21 @@ class RecordController: NSObject {
         }
     }
     
-    func lowestTemp(forDevice device : Device) -> Record? {
+    func extremeValue(forKey key: String, device: Device, lowest: Bool ) -> Record? {
         guard let context = self.persistentContainer?.viewContext else {
             return nil
         }
         
         let today = Calendar.current
-        guard let twelveHoursDate = today.date(byAdding: .hour, value: -12, to: Date(), wrappingComponents: false) else { return nil }
+        guard let twelveHoursDate = today.date(byAdding: .hour, value: -24, to: Date(), wrappingComponents: false) else { return nil }
         
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Record")
-        request.predicate = NSPredicate.init(format: "created_at > %@ AND device_id == %@", twelveHoursDate as NSDate, device.device_id!)
+        
+        guard let device_id = device.device_id else { return nil }
+        request.predicate = NSPredicate.init(format: "created_at > %@ AND device_id == %@", twelveHoursDate as NSDate, device_id)
         
         request.fetchLimit = 1
-        request.sortDescriptors = [NSSortDescriptor.init(key: "internal_temp", ascending: true)]
+        request.sortDescriptors = [NSSortDescriptor.init(key: key, ascending: lowest)]
         
         do {
             let result = try context.fetch(request)
@@ -180,8 +182,6 @@ class RecordController: NSObject {
                 let lowestRecord = result.first as! Record
                 return lowestRecord
             }
-            
-            print("Didn't find any results for low temp / records in last 12 hours")
         } catch {
             
             print("Failed")
@@ -190,29 +190,48 @@ class RecordController: NSObject {
         return nil
     }
     
-    func fetchRecords() -> [Record]?
-    {
+    func currentRecord(forDevice device: Device) -> Record? {
         guard let context = self.persistentContainer?.viewContext else {
-            return []
+            return nil
         }
         
-        let today = Calendar.current
-        guard let twelveHoursDate = today.date(byAdding: .hour, value: -12, to: Date(), wrappingComponents: false) else { return [] }
-        
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Record")
-        request.predicate = NSPredicate.init(format: "created_at > %@", twelveHoursDate as NSDate)
+        
+        guard let device_id = device.device_id else { return nil }
+        request.predicate = NSPredicate.init(format: "device_id == %@", device_id)
+        
+        request.fetchLimit = 1
+        request.sortDescriptors = [NSSortDescriptor.init(key: "created_at", ascending: false)]
         
         do {
             let result = try context.fetch(request)
             print("Found \(result.count) records")
             
-            return result as? [Record]
+            if result.count == 1 {
+                let currentRecord = result.first as! Record
+                return currentRecord
+            }
         } catch {
             
             print("Failed")
-            return []
         }
         
-        
+        return nil
+    }
+    
+    func lowestInternalTemp(forDevice device : Device) -> Record? {
+        return extremeValue(forKey: "internal_temp", device: device, lowest: true)
+    }
+    
+    func lowestExternalTemp(forDevice device : Device) -> Record? {
+        return extremeValue(forKey: "external_temp", device: device, lowest: true)
+    }
+    
+    func highestInternalTemp(forDevice device : Device) -> Record? {
+        return extremeValue(forKey: "internal_temp", device: device, lowest: false)
+    }
+    
+    func highestExternalTemp(forDevice device : Device) -> Record? {
+        return extremeValue(forKey: "external_temp", device: device, lowest: false)
     }
 }
