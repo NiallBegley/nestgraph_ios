@@ -29,20 +29,30 @@ class InstanceChooserViewController: UIViewController {
         }
     }
     
+    func showErrorLabel(_ show: Bool, withError: String?)
+    {
+        DispatchQueue.main.async(){
+            self.toggleIndicator()
+            self.errorLabel.isHidden = !show
+            self.errorLabel.text = withError
+        }
+    }
+    
     @IBAction func buttonClickedVerify(_ sender: Any) {
         
+        toggleIndicator()
+        
         guard let urlString = urlField.text, !urlString.isEmpty else {
+            self.showErrorLabel(true, withError: "Missing URL")
             return
         }
-        
-        toggleIndicator()
         
         let url = URL(string: urlString)!
         let request = URLRequest(url: url)
         
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let httpResponse = response as? HTTPURLResponse, error == nil else {
-                    self.showError()
+                self.showErrorLabel(true, withError: "Networking error - please check device settings")
                     return
             }
             
@@ -56,21 +66,13 @@ class InstanceChooserViewController: UIViewController {
             }
             else
             {
-                self.showError()
+                self.showErrorLabel(true, withError: "Received invalid HTTP response - verify URL")
             }
         }
         
         task.resume()
         
         
-    }
-    
-    func showError() {
-        
-        DispatchQueue.main.async(){
-            self.toggleIndicator()
-            self.errorLabel.isHidden = false
-        }
     }
 
     func toggleIndicator()

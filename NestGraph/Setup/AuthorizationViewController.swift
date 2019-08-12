@@ -22,6 +22,13 @@ class AuthorizationViewController: UIViewController, URLSessionTaskDelegate, UIT
     override func viewDidLoad() {
         super.viewDidLoad()
         reauthorizeLabel.isHidden = !reauthorization
+        
+        if KeychainSwift().getAuthToken() != nil
+        {
+            DispatchQueue.main.async(){
+                self.performSegue(withIdentifier:self.FIRST_TIME_DATA_SEGUE, sender: self)
+            }
+        }
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -43,7 +50,6 @@ class AuthorizationViewController: UIViewController, URLSessionTaskDelegate, UIT
         passwordField.resignFirstResponder()
         usernameField.resignFirstResponder()
         
-        //TODO: Needs to be stored / asked for somewhere
         guard let host = KeychainSwift().getHost(),
             let url = URL(string: host + "/users/sign_in") else
         {
@@ -67,12 +73,12 @@ class AuthorizationViewController: UIViewController, URLSessionTaskDelegate, UIT
         let task = session.dataTask(with: request) { data, response, error in
             guard let data = data,
                 let response = response as? HTTPURLResponse,
-                error == nil else {                                              // check for fundamental networking error
+                error == nil else {
                     print("error", error ?? "Unknown error")
                     return
             }
             
-            guard (200 ... 299) ~= response.statusCode else {                    // check for http errors
+            guard (200 ... 299) ~= response.statusCode else {                  
                 print("statusCode should be 2xx, but is \(response.statusCode)")
                 print("response = \(response)")
                 return
