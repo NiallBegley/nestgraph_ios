@@ -225,11 +225,42 @@
                         <outlet property="refreshButton" destination="Dp4-OH-ueW" id="KtL-gn-tVY"/>
                         <outlet property="tableview" destination="TMi-E6-UTS" id="LT5-sY-Zfi"/>
                         <segue destination="qCU-E2-22r" kind="presentation" identifier="AUTHORIZATION_SEGUE" id="a3S-9W-id1"/>
+                        <segue destination="ybb-6j-eOM" kind="show" identifier="CHART_SEGUE" id="i81-sB-EV4"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="g6M-D8-OkJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="815.94202898550736" y="205.58035714285714"/>
+        </scene>
+        <!--Chart View Controller-->
+        <scene sceneID="Ir2-ag-gRc">
+            <objects>
+                <viewController id="ybb-6j-eOM" customClass="ChartViewController" customModule="NestGraph" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="9aY-52-DYT">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="r1w-Zp-6dX" customClass="LineChartView" customModule="Charts">
+                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="r1w-Zp-6dX" firstAttribute="bottom" secondItem="ASW-DU-jbr" secondAttribute="bottom" id="mAh-El-UM6"/>
+                            <constraint firstItem="r1w-Zp-6dX" firstAttribute="top" secondItem="ASW-DU-jbr" secondAttribute="top" id="ok6-Wh-twe"/>
+                            <constraint firstItem="r1w-Zp-6dX" firstAttribute="trailing" secondItem="ASW-DU-jbr" secondAttribute="trailing" id="p9Z-yC-rHK"/>
+                            <constraint firstItem="r1w-Zp-6dX" firstAttribute="leading" secondItem="ASW-DU-jbr" secondAttribute="leading" id="x8K-7R-TKQ"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="ASW-DU-jbr"/>
+                    </view>
+                    <connections>
+                        <outlet property="chartView" destination="r1w-Zp-6dX" id="Ddf-CA-4nz"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HX0-Ux-Yjp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2426.0869565217395" y="451.33928571428567"/>
         </scene>
         <!--Summary Navigation Controller-->
         <scene sceneID="VMK-0L-V2B">

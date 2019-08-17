@@ -15,6 +15,7 @@ class SummaryTableViewController: UITableViewController, RecordControllerDelegat
     @IBOutlet var tableview: UITableView!
     var persistentContainer: NSPersistentContainer?
     private let AUTHORIZATION_SEGUE = "AUTHORIZATION_SEGUE"
+    private let CHART_SEGUE = "CHART_SEGUE"
     private var recordController : RecordController?
     private var devices : [Device] = []
     private var showingSetup = false
@@ -43,26 +44,26 @@ class SummaryTableViewController: UITableViewController, RecordControllerDelegat
         }
         else
         {
-            extractData()
+            refreshButton.isEnabled = false
+            self.extractData()
+            DispatchQueue.global(qos: .background).async {
+                self.refresh()
+            }
         }
        
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        self.tableview.reloadData()
+    }
+    
     func extractData() {
+        
+        //TODO: There's a problem here where the refresh is changing the device data array from under the tableview controller since we perform this in a background thread.  Needs to be addressed.
         devices = recordController?.getDevices() ?? []
         
-        for device in devices {
-            
-            guard let lowest = recordController?.lowestInternalTemp(forDevice: device),
-                let lowDate = lowest.created_at else { return }
-            let formatter = DateFormatter.HHmmss
-            print("\(device.name!) lowest internal temp: \(lowest.internal_temp) degrees at \(formatter.string(from: lowDate))")
-        }
-        
         DispatchQueue.main.async() {
-            
             self.tableview.reloadData()
-            
         }
     }
     
@@ -72,6 +73,19 @@ class SummaryTableViewController: UITableViewController, RecordControllerDelegat
             showingSetup = true
             if let vc = segue.destination as? SetupViewController {
                 vc.persistentContainer = persistentContainer
+            }
+        }
+        else if segue.identifier == CHART_SEGUE {
+            if let vc = segue.destination as? ChartViewController,
+                let indexPath = sender as? IndexPath,
+                persistentContainer != nil {
+                
+                //Handle the case of the external data
+                if indexPath.section < devices.count {
+                    vc.device = devices[indexPath.section]
+                }
+                
+                vc.persistentContainer = persistentContainer!
             }
         }
     }
@@ -122,26 +136,21 @@ class SummaryTableViewController: UITableViewController, RecordControllerDelegat
         let cell = tableView.dequeueReusableCell(withIdentifier: "DEVICE_CELL") as! DeviceSummaryTableViewCell
         let externalSection = (indexPath.section == numberOfSections(in: tableView) - 1)
         
+        let device = devices[externalSection ? 0 : indexPath.row]
+        
+        guard let high = recordController?.highestInternalTemp(forDevice: device),
+            let low = recordController?.lowestInternalTemp(forDevice: device),
+            let current = recordController?.currentRecord(forDevice: device) else { return cell }
+        
         if !externalSection {
-            let device = devices[indexPath.row]
-            guard let high = recordController?.highestInternalTemp(forDevice: device)?.internal_temp,
-                let low = recordController?.lowestInternalTemp(forDevice: device)?.internal_temp,
-                let current = recordController?.currentRecord(forDevice: device)?.internal_temp else { return cell }
-            
-            cell.setHigh(high)
-            cell.setLow(low)
-            cell.setCurrent(current)
+            cell.setHigh(high.internal_temp)
+            cell.setLow(low.internal_temp)
+            cell.setCurrent(current.internal_temp)
         }
-        else
-        {
-            let device = devices[0]
-            guard let high = recordController?.highestInternalTemp(forDevice: device)?.external_temp,
-                let low = recordController?.lowestInternalTemp(forDevice: device)?.external_temp,
-                let current = recordController?.currentRecord(forDevice: device)?.external_temp else { return cell }
-            
-            cell.setHigh(Int(high))
-            cell.setLow(Int(low))
-            cell.setCurrent(Int(current))
+        else {
+            cell.setHigh(Int(high.external_temp))
+            cell.setLow(Int(low.external_temp))
+            cell.setCurrent(Int(current.external_temp))
         }
 
         return cell
@@ -153,6 +162,10 @@ class SummaryTableViewController: UITableViewController, RecordControllerDelegat
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return section < devices.count ? devices[section].name_long : "External"
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "CHART_SEGUE", sender: indexPath)
     }
 
 }

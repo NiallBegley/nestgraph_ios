@@ -158,6 +158,30 @@ class RecordController: NSObject {
         }
     }
     
+    func allRecords(forDevice device: Device, between startDate: Date, _ endDate: Date ) -> [Record]
+    {
+        guard let context = self.persistentContainer?.viewContext else {
+            return []
+        }
+        
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Record")
+        
+        guard let device_id = device.device_id else { return [] }
+        request.predicate = NSPredicate.init(format: "created_at > %@ AND created_at < %@ AND device_id == %@", startDate as NSDate, endDate as NSDate, device_id)
+        
+        
+        request.sortDescriptors = [NSSortDescriptor.init(key: "created_at", ascending: true)]
+        
+        do {
+            let result = try context.fetch(request)
+            return result as! [Record]
+        } catch {
+            print("Failed all records fetch")
+        }
+        
+        return []
+    }
+    
     func extremeValue(forKey key: String, device: Device, lowest: Bool ) -> Record? {
         guard let context = self.persistentContainer?.viewContext else {
             return nil
@@ -176,7 +200,6 @@ class RecordController: NSObject {
         
         do {
             let result = try context.fetch(request)
-            print("Found \(result.count) records")
             
             if result.count == 1 {
                 let lowestRecord = result.first as! Record
