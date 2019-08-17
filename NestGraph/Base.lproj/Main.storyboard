@@ -215,6 +215,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="NestGraph" id="fuT-W8-p65">
+                        <barButtonItem key="leftBarButtonItem" title="Settings" style="plain" id="FVS-Gc-cr9">
+                            <connections>
+                                <segue destination="NYd-aW-aQ9" kind="show" identifier="SETTINGS_SEGUE" id="hIl-Jj-qxH"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Refresh" id="Dp4-OH-ueW">
                             <connections>
                                 <action selector="buttonClickedRefresh:" destination="x6n-rD-n7v" id="mz2-JF-RjG"/>
@@ -260,7 +265,47 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HX0-Ux-Yjp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2426.0869565217395" y="451.33928571428567"/>
+            <point key="canvasLocation" x="1616" y="442"/>
+        </scene>
+        <!--Settings Table View Controller-->
+        <scene sceneID="4i7-bJ-JZ2">
+            <objects>
+                <tableViewController id="NYd-aW-aQ9" customClass="SettingsTableViewController" customModule="NestGraph" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="DBx-1M-NDf">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="SETTINGS_CELL" id="TZj-yI-cwB">
+                                <rect key="frame" x="0.0" y="28" width="414" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="TZj-yI-cwB" id="iXb-TF-qXi">
+                                    <rect key="frame" x="0.0" y="0.0" width="376" height="43.666666666666664"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reset All Settings" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2NI-z2-7Rs">
+                                            <rect key="frame" x="20" y="11.333333333333336" width="135" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="2NI-z2-7Rs" firstAttribute="leading" secondItem="iXb-TF-qXi" secondAttribute="leadingMargin" id="0AR-QL-Rb1"/>
+                                        <constraint firstItem="2NI-z2-7Rs" firstAttribute="centerY" secondItem="iXb-TF-qXi" secondAttribute="centerY" id="RYC-g5-e62"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="NYd-aW-aQ9" id="hFB-WA-2hd"/>
+                            <outlet property="delegate" destination="NYd-aW-aQ9" id="dZf-Aw-gCa"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mtt-wM-KbP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1616" y="1109"/>
         </scene>
         <!--Summary Navigation Controller-->
         <scene sceneID="VMK-0L-V2B">

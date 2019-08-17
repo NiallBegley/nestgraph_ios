@@ -23,6 +23,28 @@ class RecordController: NSObject {
         self.persistentContainer = container
     }
     
+    func deleteAll(entity: String) {
+        
+        guard let context = self.persistentContainer?.viewContext else {
+            return
+        }
+        
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entity)
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+        
+        do {
+            try context.execute(deleteRequest)
+        } catch let error as NSError {
+            // TODO: handle this error
+        }
+    }
+    
+    func deleteAll() {
+        deleteAll(entity: "Device")
+        deleteAll(entity: "Record")
+        KeychainSwift().clear()
+    }
+    
     func getDevices() -> [Device] {
         guard let context = self.persistentContainer?.viewContext else {
             return []

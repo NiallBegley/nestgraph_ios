@@ -21,7 +21,8 @@ class InstanceChooserViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if KeychainSwift().getHost() != nil
+        if KeychainSwift().getHost() != nil,
+            !KeychainSwift().getHost()!.isEmpty
         {
             DispatchQueue.main.async(){
                 self.performSegue(withIdentifier:self.VERIFY_URL_SEGUE, sender: self)

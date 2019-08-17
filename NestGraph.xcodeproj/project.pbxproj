@@ -17,6 +17,7 @@
 		3915EA8D22EE0BDE00A4AC1F /* FirstTimeDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3915EA8C22EE0BDE00A4AC1F /* FirstTimeDataViewController.swift */; };
 		3915EA8F22EE152200A4AC1F /* SetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3915EA8E22EE152200A4AC1F /* SetupViewController.swift */; };
 		3916A3C422EA613B008ACCF1 /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3916A3C322EA613B008ACCF1 /* Device.swift */; };
+		3916E65F230782C200BF0CF0 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3916E65E230782C200BF0CF0 /* SettingsTableViewController.swift */; };
 		3917726B22F8DEE2004FDEDE /* KeychainSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3917726A22F8DEE2004FDEDE /* KeychainSwift.swift */; };
 		3919CC0023008B58007D48BC /* DeviceSummaryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3919CBFF23008B58007D48BC /* DeviceSummaryTableViewCell.swift */; };
 		391A563A22EB1F090018C08A /* InstanceChooserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 391A563922EB1F090018C08A /* InstanceChooserViewController.swift */; };
@@ -64,6 +65,7 @@
 		3915EA8C22EE0BDE00A4AC1F /* FirstTimeDataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstTimeDataViewController.swift; sourceTree = "<group>"; };
 		3915EA8E22EE152200A4AC1F /* SetupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupViewController.swift; sourceTree = "<group>"; };
 		3916A3C322EA613B008ACCF1 /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
+		3916E65E230782C200BF0CF0 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		3917726A22F8DEE2004FDEDE /* KeychainSwift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainSwift.swift; sourceTree = "<group>"; };
 		3919CBFF23008B58007D48BC /* DeviceSummaryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceSummaryTableViewCell.swift; sourceTree = "<group>"; };
 		391A563922EB1F090018C08A /* InstanceChooserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstanceChooserViewController.swift; sourceTree = "<group>"; };
@@ -206,6 +208,7 @@
 				3934601422DC998D00EE35B9 /* Info.plist */,
 				3934600C22DC998C00EE35B9 /* NestGraph.xcdatamodeld */,
 				39158DE22301D75400CE130B /* ChartViewController.swift */,
+				3916E65E230782C200BF0CF0 /* SettingsTableViewController.swift */,
 			);
 			path = NestGraph;
 			sourceTree = "<group>";
@@ -486,6 +489,7 @@
 				3916A3C422EA613B008ACCF1 /* Device.swift in Sources */,
 				39129B5122EFE3B8004953EF /* CodingUserInfoKey+Util.swift in Sources */,
 				3915EA8D22EE0BDE00A4AC1F /* FirstTimeDataViewController.swift in Sources */,
+				3916E65F230782C200BF0CF0 /* SettingsTableViewController.swift in Sources */,
 				3930C52422F0F3C70055AF9B /* DateFormatter+Util.swift in Sources */,
 				39129B5322EFEF9C004953EF /* Record.swift in Sources */,
 				3934600622DC998C00EE35B9 /* AppDelegate.swift in Sources */,

@@ -23,7 +23,8 @@ class AuthorizationViewController: UIViewController, URLSessionTaskDelegate, UIT
         super.viewDidLoad()
         reauthorizeLabel.isHidden = !reauthorization
         
-        if KeychainSwift().getAuthToken() != nil
+        if KeychainSwift().getAuthToken() != nil,
+            !KeychainSwift().getAuthToken()!.isEmpty
         {
             DispatchQueue.main.async(){
                 self.performSegue(withIdentifier:self.FIRST_TIME_DATA_SEGUE, sender: self)

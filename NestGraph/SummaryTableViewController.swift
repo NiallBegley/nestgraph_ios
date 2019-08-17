@@ -11,7 +11,8 @@ import UIKit
 import CoreData
 import KeychainSwift
 
-class SummaryTableViewController: UITableViewController, RecordControllerDelegate {
+class SummaryTableViewController: UITableViewController, RecordControllerDelegate, SettingsDelegate {
+    
     @IBOutlet var tableview: UITableView!
     var persistentContainer: NSPersistentContainer?
     private let AUTHORIZATION_SEGUE = "AUTHORIZATION_SEGUE"
@@ -54,6 +55,7 @@ class SummaryTableViewController: UITableViewController, RecordControllerDelegat
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        self.extractData()
         self.tableview.reloadData()
     }
     
@@ -73,6 +75,13 @@ class SummaryTableViewController: UITableViewController, RecordControllerDelegat
             showingSetup = true
             if let vc = segue.destination as? SetupViewController {
                 vc.persistentContainer = persistentContainer
+            }
+        }
+        else if segue.identifier == "SETTINGS_SEGUE"
+        {
+            if let vc = segue.destination as? SettingsTableViewController {
+                vc.persistentContainer = persistentContainer
+                vc.delegate = self
             }
         }
         else if segue.identifier == CHART_SEGUE {
@@ -101,16 +110,11 @@ class SummaryTableViewController: UITableViewController, RecordControllerDelegat
         }
     }
     
+    // MARK: - Buttons
     @IBAction func buttonClickedRefresh(_ sender: Any) {
         refreshButton.isEnabled = false
         self.refresh()
         
-    }
-    
-    @IBAction func buttonClickedSetup(_ sender: Any) {
-        DispatchQueue.main.async(){
-            self.performSegue(withIdentifier:self.AUTHORIZATION_SEGUE, sender: self)
-        }
     }
     
     func failedAuthorization() {
@@ -124,6 +128,7 @@ class SummaryTableViewController: UITableViewController, RecordControllerDelegat
         }
     }
     
+    // MARK: - TableViewDelegate
     override func numberOfSections(in tableView: UITableView) -> Int {
         return devices.count > 0 ? devices.count + 1 : 0
     }
@@ -168,5 +173,13 @@ class SummaryTableViewController: UITableViewController, RecordControllerDelegat
         performSegue(withIdentifier: "CHART_SEGUE", sender: indexPath)
     }
 
+    // MARK: - SettingsDelegate
+    func didEraseAll() {
+        DispatchQueue.main.async() {
+            self.devices = []
+            self.tableview.reloadData()
+            self.performSegue(withIdentifier:self.AUTHORIZATION_SEGUE, sender: self)
+        }
+    }
 }
 
