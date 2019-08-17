@@ -169,7 +169,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QVb-bE-N3N">
-                                            <rect key="frame" x="247" y="33.666666666666664" width="42" height="21"/>
+                                            <rect key="frame" x="253" y="33.666666666666664" width="42" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -181,7 +181,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="HIGH" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xya-N1-1PF">
-                                            <rect key="frame" x="247" y="56.666666666666664" width="42" height="13.333333333333336"/>
+                                            <rect key="frame" x="253" y="56.666666666666664" width="42" height="13.333333333333336"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -191,7 +191,7 @@
                                         <constraint firstItem="DTv-1S-821" firstAttribute="top" secondItem="KZo-qt-A6K" secondAttribute="bottom" constant="2" id="1cA-UR-NC5"/>
                                         <constraint firstItem="Xya-N1-1PF" firstAttribute="top" secondItem="QVb-bE-N3N" secondAttribute="bottom" constant="2" id="7gq-bc-m9m"/>
                                         <constraint firstItem="KZo-qt-A6K" firstAttribute="centerY" secondItem="ZBW-0O-6Co" secondAttribute="centerY" id="CJh-0s-g1S"/>
-                                        <constraint firstItem="QVb-bE-N3N" firstAttribute="leading" secondItem="VrU-Jg-NTy" secondAttribute="trailing" constant="24" id="RBH-Bw-czd"/>
+                                        <constraint firstItem="QVb-bE-N3N" firstAttribute="leading" secondItem="VrU-Jg-NTy" secondAttribute="trailing" constant="30" id="RBH-Bw-czd"/>
                                         <constraint firstItem="Xya-N1-1PF" firstAttribute="trailing" secondItem="QVb-bE-N3N" secondAttribute="trailing" id="TAY-AJ-dKK"/>
                                         <constraint firstItem="Xya-N1-1PF" firstAttribute="leading" secondItem="QVb-bE-N3N" secondAttribute="leading" id="W85-9u-fYq"/>
                                         <constraint firstItem="VrU-Jg-NTy" firstAttribute="leading" secondItem="KZo-qt-A6K" secondAttribute="trailing" constant="30" id="X5a-j1-dqq"/>
@@ -205,6 +205,7 @@
                                 <connections>
                                     <outlet property="currentLabel" destination="VrU-Jg-NTy" id="lwq-MF-A03"/>
                                     <outlet property="highLabel" destination="QVb-bE-N3N" id="GCt-Tj-083"/>
+                                    <outlet property="labelConstraint" destination="lBT-hC-Jxn" id="SUB-AO-rul"/>
                                     <outlet property="lowLabel" destination="KZo-qt-A6K" id="VtA-Ro-Zxt"/>
                                 </connections>
                             </tableViewCell>

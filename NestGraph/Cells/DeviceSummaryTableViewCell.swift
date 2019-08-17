@@ -12,6 +12,7 @@ import ChameleonFramework
 class DeviceSummaryTableViewCell: UITableViewCell {
 
     
+    @IBOutlet weak var labelConstraint: NSLayoutConstraint!
     @IBOutlet weak var currentLabel: UILabel!
     @IBOutlet weak var lowLabel: UILabel!
     @IBOutlet weak var highLabel: UILabel!

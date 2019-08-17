@@ -151,11 +151,17 @@ class SummaryTableViewController: UITableViewController, RecordControllerDelegat
             cell.setHigh(high.internal_temp)
             cell.setLow(low.internal_temp)
             cell.setCurrent(current.internal_temp)
+            cell.accessoryType = .disclosureIndicator
+            cell.selectionStyle = .blue
+            cell.labelConstraint.constant = 0
         }
         else {
             cell.setHigh(Int(high.external_temp))
             cell.setLow(Int(low.external_temp))
             cell.setCurrent(Int(current.external_temp))
+            cell.accessoryType = .none
+            cell.selectionStyle = .none
+            cell.labelConstraint.constant = -20
         }
 
         return cell
@@ -170,8 +176,13 @@ class SummaryTableViewController: UITableViewController, RecordControllerDelegat
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "CHART_SEGUE", sender: indexPath)
+        let externalSection = (indexPath.section == numberOfSections(in: tableView) - 1)
+        
+        if !externalSection {
+            performSegue(withIdentifier: "CHART_SEGUE", sender: indexPath)
+        }
     }
+
 
     // MARK: - SettingsDelegate
     func didEraseAll() {
