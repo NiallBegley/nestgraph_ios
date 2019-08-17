@@ -127,7 +127,12 @@ class FirstTimeDataViewController: UIViewController, UITableViewDelegate, UITabl
         return cell
     }
     
+    //TODO:  This needs to be rounded out
     func failedAuthorization() {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    func failedNetworking() {
         self.navigationController?.popViewController(animated: true)
     }
     

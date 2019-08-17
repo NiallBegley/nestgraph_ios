@@ -123,8 +123,16 @@ class SummaryTableViewController: UITableViewController, RecordControllerDelegat
         
         DispatchQueue.main.async() {
             self.present(authVC, animated: true, completion:  {
+                self.refreshButton.isEnabled = true
                 self.refresh()
             })
+        }
+    }
+    
+    func failedNetworking() {
+        DispatchQueue.main.async() {
+            self.refreshButton.isEnabled = true
+            
         }
     }
     

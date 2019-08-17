@@ -10,8 +10,14 @@ import UIKit
 import CoreData
 import KeychainSwift
 
+enum NetworkingErrorType {
+    case noError
+    case authError
+    case networkError
+}
 protocol RecordControllerDelegate {
     func failedAuthorization()
+    func failedNetworking()
 }
 
 class RecordController: NSObject {
@@ -65,7 +71,7 @@ class RecordController: NSObject {
         return []
     }
     
-    func refreshRecordsFor(device: Device, completionHandler: @escaping (_ authError: Bool) -> Void)
+    func refreshRecordsFor(device: Device, completionHandler: @escaping (_ error: NetworkingErrorType) -> Void)
     {
         print("Fetching records for device \(device.name ?? "#NAME NOT FOUND#")...")
         
@@ -101,6 +107,7 @@ class RecordController: NSObject {
                 let response = response as? HTTPURLResponse,
                 error == nil else {                                              // check for fundamental networking error
                     print("error", error ?? "Unknown error")
+                    completionHandler(.networkError)
                     return
             }
             
@@ -111,7 +118,7 @@ class RecordController: NSObject {
                 if response.statusCode == 401
                 {
                     print("Failed authorization")
-                   completionHandler(true)
+                   completionHandler(.authError)
                 }
                 return
             }
@@ -122,7 +129,7 @@ class RecordController: NSObject {
             
             print("Fetched \(records.count) records for device \(device.name ?? "#DEVICE NAME NOT FOUND#")")
             
-            completionHandler(false)
+            completionHandler(.noError)
             
         }
         
@@ -132,10 +139,10 @@ class RecordController: NSObject {
     func refreshRecordsForAllDevices(completionHandler: @escaping () -> Void) {
         let group = DispatchGroup()
         let devices = getDevices()
-        var error = false
+        var errorType : NetworkingErrorType = .noError
         
-        let handler: (_ authError : Bool) -> Void = { (_ authError : Bool) in
-            error = authError
+        let handler: (_ error : NetworkingErrorType) -> Void = { (_ error : NetworkingErrorType) in
+            errorType = error
             group.leave()
         }
         
@@ -146,8 +153,18 @@ class RecordController: NSObject {
         
         //Prevent the failedAuthorization delegate call from being called 1 time for every Device
         group.notify(queue: DispatchQueue.global(qos: .background)) {
-            if error {
-                self.delegate?.failedAuthorization()
+            switch(errorType) {
+                case .authError:
+                    self.delegate?.failedAuthorization()
+                    break;
+                
+                case .networkError:
+                    self.delegate?.failedNetworking()
+                    break;
+                
+                default:
+                    break;
+                
             }
             
             completionHandler()
