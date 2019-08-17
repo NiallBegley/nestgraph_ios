@@ -35,6 +35,7 @@ class ChartViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        title = device.name
         recordController = RecordController.init(container: persistentContainer)
         
         
