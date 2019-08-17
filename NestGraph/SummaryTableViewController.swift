@@ -27,7 +27,7 @@ class SummaryTableViewController: UITableViewController, RecordControllerDelegat
         super.viewDidLoad()
         
         if let navVC = self.navigationController as? SummaryNavigationController {
-            self.persistentContainer = navVC.persistentContainer
+            persistentContainer = navVC.persistentContainer
             
             if persistentContainer != nil {
                 recordController = RecordController.init(container: persistentContainer!)
@@ -46,7 +46,7 @@ class SummaryTableViewController: UITableViewController, RecordControllerDelegat
         else
         {
             refreshButton.isEnabled = false
-            self.extractData()
+            extractData()
             DispatchQueue.global(qos: .background).async {
                 self.refresh()
             }
@@ -55,8 +55,8 @@ class SummaryTableViewController: UITableViewController, RecordControllerDelegat
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        self.extractData()
-        self.tableview.reloadData()
+        extractData()
+        tableview.reloadData()
     }
     
     func extractData() {

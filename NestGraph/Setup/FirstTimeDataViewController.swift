@@ -115,7 +115,6 @@ class FirstTimeDataViewController: UIViewController, UITableViewDelegate, UITabl
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        
         let cell = tableView.dequeueReusableCell(withIdentifier: "PROGRESS_CELL") as! SetupProgressCellTableViewCell
         
         cell.label?.text = progressSteps[indexPath.row].text as String?
@@ -123,7 +122,6 @@ class FirstTimeDataViewController: UIViewController, UITableViewDelegate, UITabl
         progressSteps[indexPath.row].animating ? cell.progressIndicator?.startAnimating() : cell.progressIndicator?.stopAnimating()
         cell.accessoryType = progressSteps[indexPath.row].done ? .checkmark : .none
         
-//        cell.accessoryType = .checkmark
         return cell
     }
     

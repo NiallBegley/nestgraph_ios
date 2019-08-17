@@ -24,17 +24,14 @@ class DeviceSummaryTableViewCell: UITableViewCell {
         highLabel.textColor = UIColor.flatRed
     }
 
-    override func draw(_ rect: CGRect) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+        
         let bounds = currentLabel.layer.bounds
         currentLabel.layer.cornerRadius = bounds.size.width * 0.5
         currentLabel.layer.borderWidth = 0
         currentLabel.layer.backgroundColor = UIColor.black.cgColor
         currentLabel.layer.borderColor = UIColor.black.cgColor
-    }
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
 
     
