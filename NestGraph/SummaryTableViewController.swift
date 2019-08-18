@@ -21,7 +21,6 @@ class SummaryTableViewController: UITableViewController, RecordControllerDelegat
     private var devices : [Device] = []
     private var showingSetup = false
     
-    @IBOutlet weak var refreshButton: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,13 +44,14 @@ class SummaryTableViewController: UITableViewController, RecordControllerDelegat
         }
         else
         {
-            refreshButton.isEnabled = false
+            refreshControl?.beginRefreshing()
             extractData()
             DispatchQueue.global(qos: .background).async {
                 self.refresh()
             }
         }
-       
+        
+        refreshControl?.addTarget(self, action: #selector(buttonClickedRefresh(_:)), for: .valueChanged)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -99,12 +99,12 @@ class SummaryTableViewController: UITableViewController, RecordControllerDelegat
         }
     }
     
-    func refresh() {
+    @objc func refresh() {
+        print("Refreshing")
         recordController?.refreshRecordsForAllDevices {
             self.extractData()
             DispatchQueue.main.async() {
-                
-                self.refreshButton.isEnabled = true
+                self.refreshControl?.endRefreshing()
                 
             }
         }
@@ -112,7 +112,7 @@ class SummaryTableViewController: UITableViewController, RecordControllerDelegat
     
     // MARK: - Buttons
     @IBAction func buttonClickedRefresh(_ sender: Any) {
-        refreshButton.isEnabled = false
+        self.refreshControl?.endRefreshing()
         self.refresh()
         
     }
@@ -123,7 +123,7 @@ class SummaryTableViewController: UITableViewController, RecordControllerDelegat
         
         DispatchQueue.main.async() {
             self.present(authVC, animated: true, completion:  {
-                self.refreshButton.isEnabled = true
+                self.refreshControl?.endRefreshing()
                 self.refresh()
             })
         }
@@ -131,7 +131,7 @@ class SummaryTableViewController: UITableViewController, RecordControllerDelegat
     
     func failedNetworking() {
         DispatchQueue.main.async() {
-            self.refreshButton.isEnabled = true
+            self.refreshControl?.endRefreshing()
             
         }
     }

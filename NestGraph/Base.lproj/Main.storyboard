@@ -221,14 +221,12 @@
                                 <segue destination="NYd-aW-aQ9" kind="show" identifier="SETTINGS_SEGUE" id="hIl-Jj-qxH"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Refresh" id="Dp4-OH-ueW">
-                            <connections>
-                                <action selector="buttonClickedRefresh:" destination="x6n-rD-n7v" id="mz2-JF-RjG"/>
-                            </connections>
-                        </barButtonItem>
                     </navigationItem>
+                    <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="wFM-cc-tb5">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </refreshControl>
                     <connections>
-                        <outlet property="refreshButton" destination="Dp4-OH-ueW" id="KtL-gn-tVY"/>
                         <outlet property="tableview" destination="TMi-E6-UTS" id="LT5-sY-Zfi"/>
                         <segue destination="qCU-E2-22r" kind="presentation" identifier="AUTHORIZATION_SEGUE" id="a3S-9W-id1"/>
                         <segue destination="ybb-6j-eOM" kind="show" identifier="CHART_SEGUE" id="i81-sB-EV4"/>
@@ -381,6 +379,12 @@
                                 <color key="textColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="URL could not be reached" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hV8-Q7-1IY">
+                                <rect key="frame" x="58" y="541.66666666666663" width="147" height="14.333333333333371"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" red="1" green="0.0" blue="0.01208707165" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -390,16 +394,19 @@
                             <constraint firstItem="rYq-uc-RWQ" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="7DK-Ig-qSZ" secondAttribute="trailing" constant="5" id="Gf0-MT-lbP"/>
                             <constraint firstItem="bHu-QA-y8r" firstAttribute="top" secondItem="bXm-eX-6U6" secondAttribute="bottom" constant="28.5" id="KHw-Sg-Ypd"/>
                             <constraint firstItem="bHu-QA-y8r" firstAttribute="centerX" secondItem="rYq-uc-RWQ" secondAttribute="centerX" id="QGG-cv-slT"/>
+                            <constraint firstItem="hV8-Q7-1IY" firstAttribute="leading" secondItem="J87-ZX-h31" secondAttribute="leading" constant="8" id="abB-VL-6TC"/>
                             <constraint firstItem="bXm-eX-6U6" firstAttribute="centerX" secondItem="rYq-uc-RWQ" secondAttribute="centerX" id="b1a-jn-0qA"/>
                             <constraint firstItem="UvG-d6-kbT" firstAttribute="centerX" secondItem="rYq-uc-RWQ" secondAttribute="centerX" id="hEx-ub-cGE"/>
                             <constraint firstItem="7DK-Ig-qSZ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="rYq-uc-RWQ" secondAttribute="leading" constant="5" id="heL-Lr-Yyu"/>
                             <constraint firstItem="bXm-eX-6U6" firstAttribute="leading" secondItem="rYq-uc-RWQ" secondAttribute="leading" constant="50" id="jUV-rP-pa4"/>
                             <constraint firstItem="rYq-uc-RWQ" firstAttribute="trailing" secondItem="bXm-eX-6U6" secondAttribute="trailing" constant="50" id="nt5-O1-zZ9"/>
+                            <constraint firstItem="hV8-Q7-1IY" firstAttribute="top" secondItem="J87-ZX-h31" secondAttribute="bottom" constant="2" id="rpa-fh-N3A"/>
                             <constraint firstItem="bXm-eX-6U6" firstAttribute="centerY" secondItem="rYq-uc-RWQ" secondAttribute="centerY" id="yZY-qF-G33"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="rYq-uc-RWQ"/>
                     </view>
                     <connections>
+                        <outlet property="errorLabel" destination="hV8-Q7-1IY" id="48Y-Va-t2k"/>
                         <outlet property="passwordField" destination="J87-ZX-h31" id="w3W-LY-ETh"/>
                         <outlet property="reauthorizeLabel" destination="7DK-Ig-qSZ" id="fQo-60-izB"/>
                         <outlet property="signInButton" destination="bHu-QA-y8r" id="iBN-fI-6uX"/>
