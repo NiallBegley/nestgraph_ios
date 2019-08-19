@@ -99,7 +99,7 @@ class SummaryTableViewController: UITableViewController, RecordControllerDelegat
         }
     }
     
-    @objc func refresh() {
+    func refresh() {
         print("Refreshing")
         recordController?.refreshRecordsForAllDevices {
             self.extractData()
@@ -149,7 +149,7 @@ class SummaryTableViewController: UITableViewController, RecordControllerDelegat
         let cell = tableView.dequeueReusableCell(withIdentifier: "DEVICE_CELL") as! DeviceSummaryTableViewCell
         let externalSection = (indexPath.section == numberOfSections(in: tableView) - 1)
         
-        let device = devices[externalSection ? 0 : indexPath.row]
+        let device = devices[externalSection ? 0 : indexPath.section]
         
         guard let high = recordController?.highestInternalTemp(forDevice: device),
             let low = recordController?.lowestInternalTemp(forDevice: device),

@@ -177,7 +177,6 @@ class RecordController: NSObject {
                 fatalError("Failed to retrieve context")
             }
             
-            
             // Parse JSON data
             guard let managedObjectContext = persistentContainer?.viewContext else {
                 return nil
