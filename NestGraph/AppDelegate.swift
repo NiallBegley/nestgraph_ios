@@ -29,11 +29,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         
         let recordController = RecordController.init(container: persistentContainer)
+        let beforeCount = recordController.totalNumberOfRecords()
         
         recordController.refreshRecordsForAllDevices {
+            let afterCount = recordController.totalNumberOfRecords()
             
-            //TODO: This needs to be changed so that we actually record how many NEW records were saved on this refresh and pass the correct enum to the completion handler
-            completionHandler(.newData)
+            completionHandler(afterCount - beforeCount > 0 ? .newData : .noData)
         }
     }
 

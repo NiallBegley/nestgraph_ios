@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-protocol SettingsDelegate {
+protocol SettingsDelegate : class{
     func didEraseAll()
 }
 
@@ -17,7 +17,7 @@ class SettingsTableViewController: UITableViewController {
 
     var persistentContainer: NSPersistentContainer?
     private var recordController : RecordController?
-    var delegate:SettingsDelegate?
+    weak var delegate:SettingsDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()

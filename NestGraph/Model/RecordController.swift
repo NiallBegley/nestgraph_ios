@@ -15,7 +15,7 @@ enum NetworkingErrorType {
     case authError
     case networkError
 }
-protocol RecordControllerDelegate {
+protocol RecordControllerDelegate : class	{
     func failedAuthorization()
     func failedNetworking()
 }
@@ -23,7 +23,7 @@ protocol RecordControllerDelegate {
 class RecordController: NSObject {
 
     var persistentContainer: NSPersistentContainer?
-    var delegate: RecordControllerDelegate?
+    weak var delegate: RecordControllerDelegate?
     
     init(container: NSPersistentContainer) {
         self.persistentContainer = container
@@ -71,6 +71,37 @@ class RecordController: NSObject {
         return []
     }
     
+    func totalNumberOfRecords() -> Int {
+        let devices = getDevices()
+        var totalCount = 0
+        
+        for device in devices {
+            totalCount += numberOfRecords(forDevice: device)
+        }
+        
+        return totalCount
+    }
+    
+    func numberOfRecords(forDevice device: Device) -> Int
+    {
+        guard let context = self.persistentContainer?.viewContext else {
+            return -1
+        }
+        
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Record")
+        
+        guard let device_id = device.device_id else { return -2 }
+        request.predicate = NSPredicate.init(format: "device_id == %@", device_id)
+        
+        do {
+            let count = try context.count(for: request)
+            return count
+        } catch let error {
+            print(error)
+            return -3
+        }
+        
+    }
     func refreshRecordsFor(device: Device, completionHandler: @escaping (_ error: NetworkingErrorType) -> Void)
     {
         print("Fetching records for device \(device.name ?? "#NAME NOT FOUND#")...")
@@ -226,12 +257,12 @@ class RecordController: NSObject {
         }
         
         let today = Calendar.current
-        guard let twelveHoursDate = today.date(byAdding: .hour, value: -24, to: Date(), wrappingComponents: false) else { return nil }
+        guard let pastDate = today.date(byAdding: .hour, value: -24, to: Date(), wrappingComponents: false) else { return nil }
         
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Record")
         
         guard let device_id = device.device_id else { return nil }
-        request.predicate = NSPredicate.init(format: "created_at > %@ AND device_id == %@", twelveHoursDate as NSDate, device_id)
+        request.predicate = NSPredicate.init(format: "created_at > %@ AND device_id == %@", pastDate as NSDate, device_id)
         
         request.fetchLimit = 1
         request.sortDescriptors = [NSSortDescriptor.init(key: key, ascending: lowest)]
@@ -266,7 +297,6 @@ class RecordController: NSObject {
         
         do {
             let result = try context.fetch(request)
-            print("Found \(result.count) records")
             
             if result.count == 1 {
                 let currentRecord = result.first as! Record
