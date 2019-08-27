@@ -29,10 +29,11 @@ class RecordController: NSObject {
         self.persistentContainer = container
     }
     
-    func deleteAll(entity: String) {
+    // MARK: - Delete Records
+    func deleteAll(entity: String) -> Bool {
         
         guard let context = self.persistentContainer?.viewContext else {
-            return
+            return false
         }
         
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entity)
@@ -41,35 +42,22 @@ class RecordController: NSObject {
         do {
             try context.execute(deleteRequest)
         } catch let error as NSError {
-            // TODO: handle this error
+            print("Error deleting all: " + entity + " " + error.localizedDescription)
+            return false
         }
+        
+        return true
     }
     
-    func deleteAll() {
-        deleteAll(entity: "Device")
-        deleteAll(entity: "Record")
+    func deleteAll() -> Bool {
+        var success = deleteAll(entity: "Device")
+        success = success && deleteAll(entity: "Record")
         KeychainSwift().clear()
+        
+        return success
     }
     
-    func getDevices() -> [Device] {
-        guard let context = self.persistentContainer?.viewContext else {
-            return []
-        }
-        
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Device")
-        
-        do {
-            let result = try context.fetch(request)
-            print("Found \(result.count) devices")
-            
-            return result as! [Device]
-        } catch {
-            
-            print("Failed")
-        }
-        
-        return []
-    }
+    // MARK: - Record Numbers
     
     func totalNumberOfRecords() -> Int {
         let devices = getDevices()
@@ -102,6 +90,8 @@ class RecordController: NSObject {
         }
         
     }
+    
+    // MARK: - Refresh
     func refreshRecordsFor(device: Device, completionHandler: @escaping (_ error: NetworkingErrorType) -> Void)
     {
         print("Fetching records for device \(device.name ?? "#NAME NOT FOUND#")...")
@@ -116,7 +106,6 @@ class RecordController: NSObject {
         let today = Calendar.current
         guard let twoDaysDate = today.date(byAdding: .day, value: -2, to: Date(), wrappingComponents: false) else { return }
         let todayDate = Date()
-        //        let twoDaysAgo = String((describing: calDate)
         
         let dateFormatter = DateFormatter.MMMdcyyyy
         let queryStart = dateFormatter.string(from: twoDaysDate)
@@ -132,7 +121,6 @@ class RecordController: NSObject {
         request.setValue(KeychainSwift().getAuthToken(), forHTTPHeaderField: "Authorization")
         request.httpMethod = "GET"
         
-        //TODO: Needs to handle failures
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data,
                 let response = response as? HTTPURLResponse,
@@ -227,6 +215,7 @@ class RecordController: NSObject {
         }
     }
     
+    // MARK: - Fetch Existing Records
     func allRecords(forDevice device: Device, between startDate: Date, _ endDate: Date ) -> [Record]
     {
         guard let context = self.persistentContainer?.viewContext else {
@@ -251,6 +240,35 @@ class RecordController: NSObject {
         return []
     }
     
+    func currentRecord(forDevice device: Device) -> Record? {
+        guard let context = self.persistentContainer?.viewContext else {
+            return nil
+        }
+        
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Record")
+        
+        guard let device_id = device.device_id else { return nil }
+        request.predicate = NSPredicate.init(format: "device_id == %@", device_id)
+        
+        request.fetchLimit = 1
+        request.sortDescriptors = [NSSortDescriptor.init(key: "created_at", ascending: false)]
+        
+        do {
+            let result = try context.fetch(request)
+            
+            if result.count == 1 {
+                let currentRecord = result.first as! Record
+                return currentRecord
+            }
+        } catch {
+            
+            print("Failed")
+        }
+        
+        return nil
+    }
+    
+    // MARK: - Low/High
     func extremeValue(forKey key: String, device: Device, lowest: Bool ) -> Record? {
         guard let context = self.persistentContainer?.viewContext else {
             return nil
@@ -282,34 +300,6 @@ class RecordController: NSObject {
         return nil
     }
     
-    func currentRecord(forDevice device: Device) -> Record? {
-        guard let context = self.persistentContainer?.viewContext else {
-            return nil
-        }
-        
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Record")
-        
-        guard let device_id = device.device_id else { return nil }
-        request.predicate = NSPredicate.init(format: "device_id == %@", device_id)
-        
-        request.fetchLimit = 1
-        request.sortDescriptors = [NSSortDescriptor.init(key: "created_at", ascending: false)]
-        
-        do {
-            let result = try context.fetch(request)
-            
-            if result.count == 1 {
-                let currentRecord = result.first as! Record
-                return currentRecord
-            }
-        } catch {
-            
-            print("Failed")
-        }
-        
-        return nil
-    }
-    
     func lowestInternalTemp(forDevice device : Device) -> Record? {
         return extremeValue(forKey: "internal_temp", device: device, lowest: true)
     }
@@ -324,5 +314,26 @@ class RecordController: NSObject {
     
     func highestExternalTemp(forDevice device : Device) -> Record? {
         return extremeValue(forKey: "external_temp", device: device, lowest: false)
+    }
+    
+    // MARK: - Device
+    func getDevices() -> [Device] {
+        guard let context = self.persistentContainer?.viewContext else {
+            return []
+        }
+        
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Device")
+        
+        do {
+            let result = try context.fetch(request)
+            print("Found \(result.count) devices")
+            
+            return result as! [Device]
+        } catch {
+            
+            print("Failed")
+        }
+        
+        return []
     }
 }

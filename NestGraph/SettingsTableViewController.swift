@@ -50,9 +50,25 @@ class SettingsTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        recordController?.deleteAll()
-        navigationController?.popViewController(animated: true)
-        delegate?.didEraseAll()
+        
+        if indexPath.row == 0 {
+            let alert = UIAlertController.init(title: "Warning", message: "Are you sure you want to erase all data?", preferredStyle: .alert)
+            alert.addAction(UIAlertAction.init(title: "Yes", style: .destructive, handler: {(alert: UIAlertAction) in
+                if let _ = self.recordController?.deleteAll() {
+                    self.navigationController?.popViewController(animated: true)
+                    self.delegate?.didEraseAll()
+                } else {
+                    let alert = UIAlertController.init(title: "Error", message: "Unable to erase all data - please try again", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction.init(title: "Okay", style: .cancel, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
+                }
+            }))
+            
+            alert.addAction(UIAlertAction.init(title: "No", style: .cancel, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+            
+            
+        }
         
     }
 
