@@ -57,28 +57,30 @@ class FirstTimeDataViewController: UIViewController, UITableViewDelegate, UITabl
                 return
             }
             
-            let responseString = String(data: data, encoding: .utf8)
-            print("responseString = \(responseString)")
-            
             guard let devices = self.recordController?.parse(data, entity: [Device].self) else { return }
             
             print("Found \(devices.count) devices")
             
             DispatchQueue.main.async() {
                 let stepText = NSString(format: "Found %d Nest devices", devices.count)
-                self.progressSteps[self.progressSteps.count-1].done = true
+                
+                if self.progressSteps.count > 0 {
+                    self.progressSteps[self.progressSteps.count-1].done = true
+                }
+                
                 self.progressSteps.append(ProgressStep.init(text: stepText, animating: false, done: true))
-                
-                
                 self.progressSteps.append(ProgressStep.init(text: "Fetching records for devices", animating: true, done: false))
                 self.tableView.reloadData()
             }
             
             self.recordController?.refreshRecordsForAllDevices {
                 DispatchQueue.main.async() {
-                    self.progressSteps[self.progressSteps.count-1].done = true
-                    self.tableView.reloadData()
                     
+                    if self.progressSteps.count > 0 {
+                        self.progressSteps[self.progressSteps.count-1].done = true
+                    }
+                    
+                    self.tableView.reloadData()
                     self.doneButton.isHidden = false
                 }
             }
