@@ -54,6 +54,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        
+         guard let rootVC = window?.rootViewController as? SummaryNavigationController else { return }
+        
+        if rootVC.viewControllers.count > 0 {
+            if let summaryVC = rootVC.viewControllers[0] as? SummaryTableViewController {
+                summaryVC.refresh()
+            }
+        }
+        
     }
 
     func applicationWillTerminate(_ application: UIApplication) {

@@ -42,21 +42,19 @@ class SummaryTableViewController: UITableViewController, RecordControllerDelegat
                 self.performSegue(withIdentifier:self.AUTHORIZATION_SEGUE, sender: self)
             }
         }
-        else
-        {
-            refreshControl?.beginRefreshing()
-            extractData()
-            DispatchQueue.global(qos: .background).async {
-                self.refresh()
-            }
+        
+        DispatchQueue.main.async() {
+            self.refreshControl?.beginRefreshing()
         }
         
         refreshControl?.addTarget(self, action: #selector(buttonClickedRefresh(_:)), for: .valueChanged)
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        extractData()
-        tableview.reloadData()
+        if showingSetup {
+            extractData()
+            tableview.reloadData()
+        }
     }
     
     func extractData() {
@@ -101,6 +99,10 @@ class SummaryTableViewController: UITableViewController, RecordControllerDelegat
     
     func refresh() {
         print("Refreshing")
+        DispatchQueue.main.async() {
+            self.refreshControl?.beginRefreshing()
+        }
+  
         recordController?.refreshRecordsForAllDevices {
             self.extractData()
             DispatchQueue.main.async() {
@@ -111,12 +113,12 @@ class SummaryTableViewController: UITableViewController, RecordControllerDelegat
     }
     
     // MARK: - Buttons
-    @IBAction func buttonClickedRefresh(_ sender: Any) {
-        self.refreshControl?.endRefreshing()
+    @objc func buttonClickedRefresh(_ sender: Any) {
         self.refresh()
         
     }
     
+    // MARK: - RecordControllerDelegate
     func failedAuthorization() {
          guard let authVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AUTHORIZATION_VIEW_CONTROLLER") as? AuthorizationViewController else { return }
         authVC.reauthorization = true
