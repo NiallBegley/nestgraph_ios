@@ -30,13 +30,15 @@ class RecordController: NSObject {
     }
     
     // MARK: - Delete Records
-    func deleteAll(entity: String) -> Bool {
+    func deleteAll(entity: String, before date: Date) -> Bool {
         
         guard let context = self.persistentContainer?.viewContext else {
             return false
         }
         
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entity)
+        fetchRequest.predicate = NSPredicate.init(format: "created_at < %@", date as NSDate)
+        
         let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
         
         do {
@@ -50,11 +52,19 @@ class RecordController: NSObject {
     }
     
     func deleteAll() -> Bool {
-        var success = deleteAll(entity: "Device")
-        success = success && deleteAll(entity: "Record")
+        var success = deleteAll(entity: "Device", before: Date())
+        success = success && deleteAll(entity: "Record", before: Date())
         KeychainSwift().clear()
         
         return success
+    }
+    
+    //This is used to delete any records older than 2 days.  It would take an eternity for the records in the database to add up to any meaningful size, but it can't hurt and there is no point in holding on to old records
+    func deleteOldRecords() {
+        let today = Calendar.current
+        guard let pastDate = today.date(byAdding: .day, value: -2, to: Date(), wrappingComponents: false) else { return }
+        
+        _ = deleteAll(entity: "Record", before: pastDate)
     }
     
     // MARK: - Record Numbers
@@ -103,6 +113,7 @@ class RecordController: NSObject {
             return
         }
         
+        //Fetch everything from the last 2 days.  Anything beyond that can't be viewed in the app anyways, so there isn't any point in grabbing any more
         let today = Calendar.current
         guard let twoDaysDate = today.date(byAdding: .day, value: -2, to: Date(), wrappingComponents: false) else { return }
         let todayDate = Date()
@@ -274,6 +285,7 @@ class RecordController: NSObject {
             return nil
         }
         
+        //Get the extreme value for the last 24 hours
         let today = Calendar.current
         guard let pastDate = today.date(byAdding: .hour, value: -24, to: Date(), wrappingComponents: false) else { return nil }
         

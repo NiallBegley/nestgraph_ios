@@ -31,6 +31,8 @@ class SummaryTableViewController: UITableViewController, RecordControllerDelegat
             if persistentContainer != nil {
                 recordController = RecordController.init(container: persistentContainer!)
                 recordController?.delegate = self
+                
+                recordController?.deleteOldRecords()
             }
         } else {
             fatalError()
@@ -53,8 +55,10 @@ class SummaryTableViewController: UITableViewController, RecordControllerDelegat
     override func viewDidAppear(_ animated: Bool) {
         if showingSetup {
             extractData()
-            tableview.reloadData()
+            showingSetup = false
         }
+        
+        tableview.reloadData()
     }
     
     func extractData() {
@@ -68,32 +72,29 @@ class SummaryTableViewController: UITableViewController, RecordControllerDelegat
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == AUTHORIZATION_SEGUE
+        if segue.identifier == AUTHORIZATION_SEGUE,
+            let vc = segue.destination as? SetupViewController
         {
             showingSetup = true
-            if let vc = segue.destination as? SetupViewController {
-                vc.persistentContainer = persistentContainer
-            }
+            vc.persistentContainer = persistentContainer
         }
-        else if segue.identifier == "SETTINGS_SEGUE"
+        else if segue.identifier == "SETTINGS_SEGUE",
+            let vc = segue.destination as? SettingsTableViewController
         {
-            if let vc = segue.destination as? SettingsTableViewController {
-                vc.persistentContainer = persistentContainer
-                vc.delegate = self
-            }
+            vc.persistentContainer = persistentContainer
+            vc.delegate = self
         }
-        else if segue.identifier == CHART_SEGUE {
-            if let vc = segue.destination as? ChartViewController,
-                let indexPath = sender as? IndexPath,
-                persistentContainer != nil {
-                
+        else if segue.identifier == CHART_SEGUE,
+            let vc = segue.destination as? ChartViewController,
+            let indexPath = sender as? IndexPath,
+            persistentContainer != nil {
+            
                 //Handle the case of the external data
                 if indexPath.section < devices.count {
                     vc.device = devices[indexPath.section]
                 }
                 
                 vc.persistentContainer = persistentContainer!
-            }
         }
     }
     
@@ -192,7 +193,6 @@ class SummaryTableViewController: UITableViewController, RecordControllerDelegat
             performSegue(withIdentifier: "CHART_SEGUE", sender: indexPath)
         }
     }
-
 
     // MARK: - SettingsDelegate
     func didEraseAll() {

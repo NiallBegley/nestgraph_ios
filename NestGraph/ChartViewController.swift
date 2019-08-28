@@ -76,9 +76,9 @@ class ChartViewController: UIViewController {
         chartView.animate(xAxisDuration: 2.5)
         
         let today = Calendar.current
-        guard let twelveHoursDate = today.date(byAdding: .hour, value: -24, to: Date(), wrappingComponents: false) else { return }
+        guard let pastDate = today.date(byAdding: .hour, value: -24, to: Date(), wrappingComponents: false) else { return }
         
-        guard let records : [Record] = recordController?.allRecords(forDevice: device, between: twelveHoursDate, Date()) else {return}
+        guard let records : [Record] = recordController?.allRecords(forDevice: device, between: pastDate, Date()) else {return}
         
         var maximum : Int = -99999
         var minimum : Int = 99999

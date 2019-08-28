@@ -24,7 +24,7 @@ class AuthorizationViewController: UIViewController, URLSessionTaskDelegate, UIT
         super.viewDidLoad()
         reauthorizeLabel.isHidden = !reauthorization
     }
-    
+
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == usernameField
         {
@@ -118,29 +118,12 @@ class AuthorizationViewController: UIViewController, URLSessionTaskDelegate, UIT
         
     }
     
-    
-    func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
-        if error != nil {
-            print(error?.localizedDescription)
-        }
-    }
-    
-    func urlSession(_ session: URLSession, didBecomeInvalidWithError error: Error?) {
-        
-        print(error?.localizedDescription)
-    }
-    
-    func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
-         print("Test")
-    }
-    
     func urlSession(_ session: URLSession,
                     task: URLSessionTask,
                     willPerformHTTPRedirection response: HTTPURLResponse,
                     newRequest request: URLRequest,
                     completionHandler: @escaping (URLRequest?) -> Void)
     {
-        //TODO: Needs to handle failures / missing Authorization header
         print(response.allHeaderFields)
         if let authtoken = response.allHeaderFields["Authorization"] as? String
         {

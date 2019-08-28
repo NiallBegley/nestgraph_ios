@@ -33,7 +33,6 @@ class DeviceSummaryTableViewCell: UITableViewCell {
         currentLabel.layer.backgroundColor = UIColor.black.cgColor
         currentLabel.layer.borderColor = UIColor.black.cgColor
     }
-
     
     func setHigh(_ temp: Int)
     {
