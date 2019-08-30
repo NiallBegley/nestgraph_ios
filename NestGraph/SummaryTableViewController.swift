@@ -159,7 +159,7 @@ class SummaryTableViewController: UITableViewController, RecordControllerDelegat
             let current = recordController?.currentRecord(forDevice: device) else { return cell }
         
         if !externalSection {
-            cell.setHigh(high.internal_temp)
+            cell.setHigh(Int(high.external_temp))
             cell.setLow(low.internal_temp)
             cell.setCurrent(current.internal_temp)
             cell.accessoryType = .disclosureIndicator
