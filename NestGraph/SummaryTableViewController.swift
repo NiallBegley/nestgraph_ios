@@ -15,11 +15,11 @@ class SummaryTableViewController: UITableViewController, RecordControllerDelegat
     
     @IBOutlet var tableview: UITableView!
     var persistentContainer: NSPersistentContainer?
-    private let AUTHORIZATION_SEGUE = "AUTHORIZATION_SEGUE"
-    private let CHART_SEGUE = "CHART_SEGUE"
-    private var recordController : RecordController?
-    private var devices : [Device] = []
-    private var showingSetup = false
+    let AUTHORIZATION_SEGUE = "AUTHORIZATION_SEGUE"
+    let CHART_SEGUE = "CHART_SEGUE"
+    var recordController : RecordController?
+    var devices : [Device] = []
+    var showingSetup = false
     
     
     override func viewDidLoad() {

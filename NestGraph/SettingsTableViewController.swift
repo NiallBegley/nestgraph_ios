@@ -16,7 +16,7 @@ protocol SettingsDelegate : class{
 class SettingsTableViewController: UITableViewController {
 
     var persistentContainer: NSPersistentContainer?
-    private var recordController : RecordController?
+    var recordController : RecordController?
     weak var delegate:SettingsDelegate?
     
     override func viewDidLoad() {

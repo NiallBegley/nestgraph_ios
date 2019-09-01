@@ -74,8 +74,7 @@ class AuthorizationViewController: UIViewController, URLSessionTaskDelegate, UIT
         let session = URLSession(configuration: .default, delegate: self, delegateQueue: nil)
         
         let task = session.dataTask(with: request) { data, response, error in
-            guard let data = data,
-                let response = response as? HTTPURLResponse,
+            guard let response = response as? HTTPURLResponse,
                 error == nil else {
                     
                     self.showErrorLabel(true, withError: "Networking error - please check connection")

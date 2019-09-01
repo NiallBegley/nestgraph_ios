@@ -28,7 +28,7 @@ class FirstTimeDataViewController: UIViewController, UITableViewDelegate, UITabl
     @IBOutlet weak var doneButton: UIButton!
     var persistentContainer: NSPersistentContainer?
     var progressSteps: [ProgressStep] = []
-    private var recordController : RecordController?
+    var recordController : RecordController?
     
     override func viewDidAppear(_ animated: Bool) {
         

@@ -32,6 +32,7 @@
 		3934601E22DC998D00EE35B9 /* NestGraphTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3934601D22DC998D00EE35B9 /* NestGraphTests.swift */; };
 		3934602922DC998D00EE35B9 /* NestGraphUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3934602822DC998D00EE35B9 /* NestGraphUITests.swift */; };
 		393F140522DCD6A100908BA1 /* AuthorizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393F140422DCD6A100908BA1 /* AuthorizationViewController.swift */; };
+		39933B2C231A909400EA82FE /* BalloonMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39933B2B231A909300EA82FE /* BalloonMarker.swift */; };
 		ECCD9C070F592B3AAE3A88F6 /* Pods_NestGraphUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 71EB574EDA00E1BEDD04746A /* Pods_NestGraphUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -87,6 +88,7 @@
 		3934602A22DC998D00EE35B9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		393F140422DCD6A100908BA1 /* AuthorizationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationViewController.swift; sourceTree = "<group>"; };
 		393F140722DCDB0C00908BA1 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		39933B2B231A909300EA82FE /* BalloonMarker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BalloonMarker.swift; sourceTree = "<group>"; };
 		4A43C6E80368A22F451B5194 /* Pods-NestGraphTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NestGraphTests.debug.xcconfig"; path = "Target Support Files/Pods-NestGraphTests/Pods-NestGraphTests.debug.xcconfig"; sourceTree = "<group>"; };
 		71EB574EDA00E1BEDD04746A /* Pods_NestGraphUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NestGraphUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9952E5B26A1E627534DA48AD /* Pods_NestGraph.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NestGraph.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -202,6 +204,7 @@
 				3934600522DC998C00EE35B9 /* AppDelegate.swift */,
 				3920117022FB647C00789769 /* SummaryNavigationController.swift */,
 				3934600722DC998C00EE35B9 /* SummaryTableViewController.swift */,
+				39933B2B231A909300EA82FE /* BalloonMarker.swift */,
 				3934600922DC998C00EE35B9 /* Main.storyboard */,
 				3934600F22DC998D00EE35B9 /* Assets.xcassets */,
 				3934601122DC998D00EE35B9 /* LaunchScreen.storyboard */,
@@ -489,6 +492,7 @@
 				3916A3C422EA613B008ACCF1 /* Device.swift in Sources */,
 				39129B5122EFE3B8004953EF /* CodingUserInfoKey+Util.swift in Sources */,
 				3915EA8D22EE0BDE00A4AC1F /* FirstTimeDataViewController.swift in Sources */,
+				39933B2C231A909400EA82FE /* BalloonMarker.swift in Sources */,
 				3916E65F230782C200BF0CF0 /* SettingsTableViewController.swift in Sources */,
 				3930C52422F0F3C70055AF9B /* DateFormatter+Util.swift in Sources */,
 				39129B5322EFEF9C004953EF /* Record.swift in Sources */,

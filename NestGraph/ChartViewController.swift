@@ -23,7 +23,7 @@ public class DateValueFormatter: NSObject, IAxisValueFormatter {
     }
 }
 
-class ChartViewController: UIViewController {
+class ChartViewController: UIViewController, ChartViewDelegate {
 
     @IBOutlet var chartView: LineChartView!
     lazy var device : Device = Device()
@@ -38,17 +38,22 @@ class ChartViewController: UIViewController {
         title = device.name
         recordController = RecordController.init(container: persistentContainer)
         
-        
         chartView.chartDescription?.enabled = false
-        
         chartView.dragEnabled = false
-//        chartView.setScaleEnabled(true)
-        chartView.pinchZoomEnabled = true
+        chartView.pinchZoomEnabled = false
         chartView.highlightPerDragEnabled = true
-        
         chartView.backgroundColor = .white
-        
         chartView.legend.enabled = true
+        chartView.doubleTapToZoomEnabled = false
+        chartView.delegate = self
+        
+        let marker = BalloonMarker(color: UIColor(white: 180/255, alpha: 1),
+                                   font: .systemFont(ofSize: 12),
+                                   textColor: .white,
+                                   insets: UIEdgeInsets(top: 8, left: 8, bottom: 20, right: 8))
+        marker.chartView = chartView
+        marker.minimumSize = CGSize(width: 80, height: 40)
+        chartView.marker = marker
         
         let xAxis = chartView.xAxis
         xAxis.labelPosition = .bottomInside
@@ -64,15 +69,12 @@ class ChartViewController: UIViewController {
         leftAxis.labelPosition = .outsideChart
         leftAxis.labelFont = .systemFont(ofSize: 10, weight: .light)
         leftAxis.drawGridLinesEnabled = true
-        leftAxis.granularityEnabled = true
-        leftAxis.granularity = 5
-        
+        leftAxis.granularityEnabled = false
+        leftAxis.granularity = 1
         leftAxis.labelTextColor = UIColor.flatGrayDark
-        
         
         chartView.rightAxis.enabled = false
         chartView.legend.form = .line
-
         chartView.animate(xAxisDuration: 2.5)
         
         let today = Calendar.current
@@ -115,57 +117,26 @@ class ChartViewController: UIViewController {
             return ChartDataEntry(x: record.created_at?.timeIntervalSince1970 ?? 0, y: Double(y))
         }
         
+        let targetTemp = records.map {
+            (record) -> ChartDataEntry in
+            let y = record.target_temp
+            maximum = max(maximum, y)
+            if y != 0 {
+                minimum = min(minimum, y)
+            }
+            return ChartDataEntry(x: record.created_at?.timeIntervalSince1970 ?? 0, y: Double(y))
+        }
         
         leftAxis.axisMinimum = Double(minimum)
         leftAxis.axisMaximum = Double(maximum)
         
+        let set1 = createSet(withLabel: "Internal Temperature", UIColor.flatSkyBlue, internalData)
+        let set2 = createSet(withLabel: "External Temperature", UIColor.flatRed, externalData)
+        let set3 = createSet(withLabel: "External Humidity", UIColor.flatGreen, externalHumidity)
+        let set4 = createSet(withLabel: "Internal Humidity", UIColor.flatYellow, internalHumidity)
+        let set5 = createSet(withLabel: "Target Temp", UIColor.flatPowderBlue, targetTemp)
         
-        let set1 = LineChartDataSet(entries: internalData, label: "Internet Temperature")
-        set1.axisDependency = .left
-        set1.setColor(UIColor(red: 51/255, green: 181/255, blue: 229/255, alpha: 1))
-        set1.lineWidth = 1.5
-        set1.drawCirclesEnabled = false
-        set1.drawValuesEnabled = false
-        set1.fillAlpha = 0.26
-        set1.fillColor = UIColor(red: 51/255, green: 181/255, blue: 229/255, alpha: 1)
-        set1.highlightColor = UIColor(red: 244/255, green: 117/255, blue: 117/255, alpha: 1)
-        set1.drawCircleHoleEnabled = false
-        
-        
-        let set2 = LineChartDataSet(entries: externalData, label: "External Temperature")
-        set2.axisDependency = .left
-        set2.setColor(UIColor.flatRed)
-        set2.lineWidth = 1.5
-        set2.drawCirclesEnabled = false
-        set2.drawValuesEnabled = false
-        set2.fillAlpha = 0.26
-        set2.fillColor = UIColor(red: 51/255, green: 181/255, blue: 229/255, alpha: 1)
-        set2.highlightColor = UIColor(red: 244/255, green: 117/255, blue: 117/255, alpha: 1)
-        set2.drawCircleHoleEnabled = false
-        
-        let set3 = LineChartDataSet(entries: externalHumidity, label: "External Humidity")
-        set3.axisDependency = .left
-        set3.setColor(UIColor.flatGreen)
-        set3.lineWidth = 1.5
-        set3.drawCirclesEnabled = false
-        set3.drawValuesEnabled = false
-        set3.fillAlpha = 0.26
-        set3.fillColor = UIColor(red: 51/255, green: 181/255, blue: 229/255, alpha: 1)
-        set3.highlightColor = UIColor(red: 244/255, green: 117/255, blue: 117/255, alpha: 1)
-        set3.drawCircleHoleEnabled = false
-        
-        let set4 = LineChartDataSet(entries: internalHumidity, label: "Internal Humidity")
-        set4.axisDependency = .left
-        set4.setColor(UIColor.flatYellow)
-        set4.lineWidth = 1.5
-        set4.drawCirclesEnabled = false
-        set4.drawValuesEnabled = false
-        set4.fillAlpha = 0.26
-        set4.fillColor = UIColor(red: 51/255, green: 181/255, blue: 229/255, alpha: 1)
-        set4.highlightColor = UIColor(red: 244/255, green: 117/255, blue: 117/255, alpha: 1)
-        set4.drawCircleHoleEnabled = false
-        
-        let data = LineChartData(dataSets: [set1, set2, set3, set4])
+        let data = LineChartData(dataSets: [set1, set2, set3, set4, set5])
         
         chartView.data = data
     
@@ -175,5 +146,25 @@ class ChartViewController: UIViewController {
 //        chartView.highlightValue(x: lowestInt?.created_at?.timeIntervalSince1970 ?? 0, y: Double(lowestInt?.internal_temp ?? 0), dataSetIndex: 0)
     }
 
+    func createSet(withLabel label: String, _ color: UIColor, _ data: [ChartDataEntry]) -> LineChartDataSet {
+        let set = LineChartDataSet(entries: data, label: label)
+        set.axisDependency = .left
+        set.setColor(color)
+        set.lineWidth = 1.5
+        set.drawCirclesEnabled = false
+        set.drawValuesEnabled = false
+        set.fillAlpha = 0.26
+        set.fillColor = UIColor(red: 51/255, green: 181/255, blue: 229/255, alpha: 1)
+        set.highlightColor = UIColor(red: 244/255, green: 117/255, blue: 117/255, alpha: 1)
+        set.drawCircleHoleEnabled = false
+        set.highlightEnabled = true
+        
+        return set
+    }
+    
+    // MARK: - ChartViewDelegate
+    func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
+        
+    }
 
 }

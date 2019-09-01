@@ -11,7 +11,7 @@ import KeychainSwift
 
 extension KeychainSwift {
     
-    enum KeychainKeys : String {
+    private enum KeychainKeys : String {
         case authtoken
         case host
     }
