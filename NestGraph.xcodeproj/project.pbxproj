@@ -13,7 +13,6 @@
 		39129B5122EFE3B8004953EF /* CodingUserInfoKey+Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39129B5022EFE3B8004953EF /* CodingUserInfoKey+Util.swift */; };
 		39129B5322EFEF9C004953EF /* Record.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39129B5222EFEF9C004953EF /* Record.swift */; };
 		3914BC1923080846006506BE /* KeychainSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3914BC1823080846006506BE /* KeychainSwift.swift */; };
-		39158DE32301D75400CE130B /* ChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39158DE22301D75400CE130B /* ChartViewController.swift */; };
 		3915BE0322F144F6004AD6E9 /* SetupProgressCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3915BE0222F144F6004AD6E9 /* SetupProgressCellTableViewCell.swift */; };
 		3915EA8D22EE0BDE00A4AC1F /* FirstTimeDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3915EA8C22EE0BDE00A4AC1F /* FirstTimeDataViewController.swift */; };
 		3915EA8F22EE152200A4AC1F /* SetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3915EA8E22EE152200A4AC1F /* SetupViewController.swift */; };
@@ -32,7 +31,8 @@
 		3934601E22DC998D00EE35B9 /* NestGraphTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3934601D22DC998D00EE35B9 /* NestGraphTests.swift */; };
 		3934602922DC998D00EE35B9 /* NestGraphUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3934602822DC998D00EE35B9 /* NestGraphUITests.swift */; };
 		393F140522DCD6A100908BA1 /* AuthorizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393F140422DCD6A100908BA1 /* AuthorizationViewController.swift */; };
-		39933B2C231A909400EA82FE /* BalloonMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39933B2B231A909300EA82FE /* BalloonMarker.swift */; };
+		39933B3B231C4F2200C1C05D /* BalloonMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39933B39231C4F2200C1C05D /* BalloonMarker.swift */; };
+		39933B3C231C4F2200C1C05D /* ChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39933B3A231C4F2200C1C05D /* ChartViewController.swift */; };
 		ECCD9C070F592B3AAE3A88F6 /* Pods_NestGraphUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 71EB574EDA00E1BEDD04746A /* Pods_NestGraphUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -62,7 +62,6 @@
 		39129B5022EFE3B8004953EF /* CodingUserInfoKey+Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodingUserInfoKey+Util.swift"; sourceTree = "<group>"; };
 		39129B5222EFEF9C004953EF /* Record.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Record.swift; sourceTree = "<group>"; };
 		3914BC1823080846006506BE /* KeychainSwift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainSwift.swift; sourceTree = "<group>"; };
-		39158DE22301D75400CE130B /* ChartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartViewController.swift; sourceTree = "<group>"; };
 		3915BE0222F144F6004AD6E9 /* SetupProgressCellTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupProgressCellTableViewCell.swift; sourceTree = "<group>"; };
 		3915EA8C22EE0BDE00A4AC1F /* FirstTimeDataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstTimeDataViewController.swift; sourceTree = "<group>"; };
 		3915EA8E22EE152200A4AC1F /* SetupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupViewController.swift; sourceTree = "<group>"; };
@@ -88,7 +87,8 @@
 		3934602A22DC998D00EE35B9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		393F140422DCD6A100908BA1 /* AuthorizationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationViewController.swift; sourceTree = "<group>"; };
 		393F140722DCDB0C00908BA1 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
-		39933B2B231A909300EA82FE /* BalloonMarker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BalloonMarker.swift; sourceTree = "<group>"; };
+		39933B39231C4F2200C1C05D /* BalloonMarker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BalloonMarker.swift; sourceTree = "<group>"; };
+		39933B3A231C4F2200C1C05D /* ChartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartViewController.swift; sourceTree = "<group>"; };
 		4A43C6E80368A22F451B5194 /* Pods-NestGraphTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NestGraphTests.debug.xcconfig"; path = "Target Support Files/Pods-NestGraphTests/Pods-NestGraphTests.debug.xcconfig"; sourceTree = "<group>"; };
 		71EB574EDA00E1BEDD04746A /* Pods_NestGraphUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NestGraphUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9952E5B26A1E627534DA48AD /* Pods_NestGraph.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NestGraph.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -172,6 +172,15 @@
 			path = Setup;
 			sourceTree = "<group>";
 		};
+		39209D86231BE18000827153 /* Chart */ = {
+			isa = PBXGroup;
+			children = (
+				39933B39231C4F2200C1C05D /* BalloonMarker.swift */,
+				39933B3A231C4F2200C1C05D /* ChartViewController.swift */,
+			);
+			path = Chart;
+			sourceTree = "<group>";
+		};
 		39345FF922DC998C00EE35B9 = {
 			isa = PBXGroup;
 			children = (
@@ -197,6 +206,7 @@
 		3934600422DC998C00EE35B9 /* NestGraph */ = {
 			isa = PBXGroup;
 			children = (
+				39209D86231BE18000827153 /* Chart */,
 				39158DDF2301C8F700CE130B /* Cells */,
 				39129B4F22EFE386004953EF /* Extensions */,
 				391A563822EB1EE90018C08A /* Setup */,
@@ -204,14 +214,12 @@
 				3934600522DC998C00EE35B9 /* AppDelegate.swift */,
 				3920117022FB647C00789769 /* SummaryNavigationController.swift */,
 				3934600722DC998C00EE35B9 /* SummaryTableViewController.swift */,
-				39933B2B231A909300EA82FE /* BalloonMarker.swift */,
+				3916E65E230782C200BF0CF0 /* SettingsTableViewController.swift */,
 				3934600922DC998C00EE35B9 /* Main.storyboard */,
 				3934600F22DC998D00EE35B9 /* Assets.xcassets */,
 				3934601122DC998D00EE35B9 /* LaunchScreen.storyboard */,
 				3934601422DC998D00EE35B9 /* Info.plist */,
 				3934600C22DC998C00EE35B9 /* NestGraph.xcdatamodeld */,
-				39158DE22301D75400CE130B /* ChartViewController.swift */,
-				3916E65E230782C200BF0CF0 /* SettingsTableViewController.swift */,
 			);
 			path = NestGraph;
 			sourceTree = "<group>";
@@ -492,12 +500,12 @@
 				3916A3C422EA613B008ACCF1 /* Device.swift in Sources */,
 				39129B5122EFE3B8004953EF /* CodingUserInfoKey+Util.swift in Sources */,
 				3915EA8D22EE0BDE00A4AC1F /* FirstTimeDataViewController.swift in Sources */,
-				39933B2C231A909400EA82FE /* BalloonMarker.swift in Sources */,
+				39933B3B231C4F2200C1C05D /* BalloonMarker.swift in Sources */,
+				39933B3C231C4F2200C1C05D /* ChartViewController.swift in Sources */,
 				3916E65F230782C200BF0CF0 /* SettingsTableViewController.swift in Sources */,
 				3930C52422F0F3C70055AF9B /* DateFormatter+Util.swift in Sources */,
 				39129B5322EFEF9C004953EF /* Record.swift in Sources */,
 				3934600622DC998C00EE35B9 /* AppDelegate.swift in Sources */,
-				39158DE32301D75400CE130B /* ChartViewController.swift in Sources */,
 				391A563A22EB1F090018C08A /* InstanceChooserViewController.swift in Sources */,
 				3920117122FB647C00789769 /* SummaryNavigationController.swift in Sources */,
 				3915EA8F22EE152200A4AC1F /* SetupViewController.swift in Sources */,

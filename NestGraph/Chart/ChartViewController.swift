@@ -10,6 +10,11 @@ import UIKit
 import CoreData
 import Charts
 
+enum ChartDisplayOptions {
+    case highest
+    case lowest
+}
+
 public class DateValueFormatter: NSObject, IAxisValueFormatter {
     private let dateFormatter = DateFormatter()
     
@@ -23,7 +28,7 @@ public class DateValueFormatter: NSObject, IAxisValueFormatter {
     }
 }
 
-class ChartViewController: UIViewController, ChartViewDelegate {
+class ChartViewController: UIViewController {
 
     @IBOutlet var chartView: LineChartView!
     lazy var device : Device = Device()
@@ -45,7 +50,6 @@ class ChartViewController: UIViewController, ChartViewDelegate {
         chartView.backgroundColor = .white
         chartView.legend.enabled = true
         chartView.doubleTapToZoomEnabled = false
-        chartView.delegate = self
         
         let marker = BalloonMarker(color: UIColor(white: 180/255, alpha: 1),
                                    font: .systemFont(ofSize: 12),
@@ -69,8 +73,8 @@ class ChartViewController: UIViewController, ChartViewDelegate {
         leftAxis.labelPosition = .outsideChart
         leftAxis.labelFont = .systemFont(ofSize: 10, weight: .light)
         leftAxis.drawGridLinesEnabled = true
-        leftAxis.granularityEnabled = false
-        leftAxis.granularity = 1
+        leftAxis.granularityEnabled = true
+        leftAxis.granularity = 5
         leftAxis.labelTextColor = UIColor.flatGrayDark
         
         chartView.rightAxis.enabled = false
@@ -139,11 +143,9 @@ class ChartViewController: UIViewController, ChartViewDelegate {
         let data = LineChartData(dataSets: [set1, set2, set3, set4, set5])
         
         chartView.data = data
+        
+        selectedDisplayOption(.lowest)
     
-        
-        let lowestInt = recordController?.highestInternalTemp(forDevice: device)
-        
-//        chartView.highlightValue(x: lowestInt?.created_at?.timeIntervalSince1970 ?? 0, y: Double(lowestInt?.internal_temp ?? 0), dataSetIndex: 0)
     }
 
     func createSet(withLabel label: String, _ color: UIColor, _ data: [ChartDataEntry]) -> LineChartDataSet {
@@ -162,9 +164,54 @@ class ChartViewController: UIViewController, ChartViewDelegate {
         return set
     }
     
-    // MARK: - ChartViewDelegate
-    func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
+    
+    // MARK: - ChartDisplay
+    @IBAction func buttonClickedDisplay(_ sender: Any) {
+        
+        let alert = UIAlertController.init(title: "Display Options", message: "Select what values you would like to highlight", preferredStyle: .actionSheet)
+        
+        alert.addAction(UIAlertAction.init(title: "Lowest Temperatures", style: .default, handler: {(alert: UIAlertAction) in
+            self.selectedDisplayOption(.lowest)
+        }))
+        
+        alert.addAction(UIAlertAction.init(title: "Highest Temperatures", style: .default, handler: {(alert: UIAlertAction) in
+            self.selectedDisplayOption(.highest)
+        }))
+        
+        alert.addAction(UIAlertAction.init(title: "Cancel", style: .cancel, handler: nil))
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func selectedDisplayOption(_ option: ChartDisplayOptions) {
+        
+        var highlights : [Highlight]
+        
+        switch option {
+            case .highest:
+                guard let highestInt = recordController?.highestInternalTemp(forDevice: device),
+                    let highestExt = recordController?.highestExternalTemp(forDevice: device),
+                    let highestIntDate = highestInt.created_at,
+                    let highestExtDate = highestExt.created_at else { return }
+               
+                highlights = [Highlight.init(x: highestIntDate.timeIntervalSince1970, y: Double(highestInt.internal_temp), dataSetIndex: 0),
+                                  Highlight.init(x: highestExtDate.timeIntervalSince1970, y: Double(highestExt.external_temp), dataSetIndex: 1)]
+                
+                break;
+            case .lowest:
+                guard let lowestInt = recordController?.lowestInternalTemp(forDevice: device),
+                    let lowestExt = recordController?.lowestExternalTemp(forDevice: device),
+                    let lowIntDate = lowestInt.created_at,
+                    let lowExtDate = lowestExt.created_at else { return }
+                
+                highlights = [Highlight.init(x: lowIntDate.timeIntervalSince1970, y: Double(lowestInt.internal_temp), dataSetIndex: 0),
+                              Highlight.init(x: lowExtDate.timeIntervalSince1970, y: Double(lowestExt.external_temp), dataSetIndex: 1)]
+                
+                break;
+            
+        }
+        
+        chartView.highlightValues(highlights)
         
     }
-
 }
