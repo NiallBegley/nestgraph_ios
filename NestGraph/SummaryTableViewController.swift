@@ -135,7 +135,6 @@ class SummaryTableViewController: UITableViewController, RecordControllerDelegat
     func failedNetworking() {
         DispatchQueue.main.async() {
             self.refreshControl?.endRefreshing()
-            
         }
     }
     
@@ -154,12 +153,14 @@ class SummaryTableViewController: UITableViewController, RecordControllerDelegat
         
         let device = devices[externalSection ? 0 : indexPath.section]
         
-        guard let high = recordController?.highestInternalTemp(forDevice: device),
-            let low = recordController?.lowestInternalTemp(forDevice: device),
-            let current = recordController?.currentRecord(forDevice: device) else { return cell }
         
         if !externalSection {
-            cell.setHigh(Int(high.external_temp))
+            
+            guard let high = recordController?.highestInternalTemp(forDevice: device),
+                let low = recordController?.lowestInternalTemp(forDevice: device),
+                let current = recordController?.currentRecord(forDevice: device) else { return cell }
+            
+            cell.setHigh(Int(high.internal_temp))
             cell.setLow(low.internal_temp)
             cell.setCurrent(current.internal_temp)
             cell.accessoryType = .disclosureIndicator
@@ -167,6 +168,11 @@ class SummaryTableViewController: UITableViewController, RecordControllerDelegat
             cell.labelConstraint.constant = 0
         }
         else {
+            
+            guard let high = recordController?.highestExternalTemp(forDevice: device),
+                let low = recordController?.lowestExternalTemp(forDevice: device),
+                let current = recordController?.currentRecord(forDevice: device) else { return cell }
+            
             cell.setHigh(Int(high.external_temp))
             cell.setLow(Int(low.external_temp))
             cell.setCurrent(Int(current.external_temp))
