@@ -167,6 +167,8 @@ class RecordController: NSObject {
     }
     
     func refreshRecordsForAllDevices(completionHandler: @escaping () -> Void) {
+        //Prevent the failedAuthorization delegate call from being called 1 time for every Device using a dispatch group
+        //This has the added benefit of preventing multiple parse() calls running on different threads from writing to the database at the same time
         let group = DispatchGroup()
         let devices = getDevices()
         var errorType : NetworkingErrorType = .noError
@@ -181,7 +183,6 @@ class RecordController: NSObject {
             refreshRecordsFor(device: device, completionHandler: handler)
         }
         
-        //Prevent the failedAuthorization delegate call from being called 1 time for every Device
         group.notify(queue: DispatchQueue.global(qos: .background)) {
             switch(errorType) {
                 case .authError:
