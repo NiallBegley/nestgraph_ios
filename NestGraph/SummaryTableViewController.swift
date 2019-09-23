@@ -33,6 +33,14 @@ class SummaryTableViewController: UITableViewController, RecordControllerDelegat
                 recordController?.delegate = self
                 
                 recordController?.deleteOldRecords()
+                
+                recordController?.refreshRecordsForAllDevices {
+                    self.extractData()
+                    DispatchQueue.main.async() {
+                        self.refreshControl?.endRefreshing()
+                        
+                    }
+                }
             }
         } else {
             fatalError()
@@ -123,12 +131,11 @@ class SummaryTableViewController: UITableViewController, RecordControllerDelegat
     func failedAuthorization() {
          guard let authVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AUTHORIZATION_VIEW_CONTROLLER") as? AuthorizationViewController else { return }
         authVC.reauthorization = true
+        showingSetup = true
         
         DispatchQueue.main.async() {
-            self.present(authVC, animated: true, completion:  {
-                self.refreshControl?.endRefreshing()
-                self.refresh()
-            })
+            self.refreshControl?.endRefreshing()
+            self.present(authVC, animated: true, completion: nil)
         }
     }
     

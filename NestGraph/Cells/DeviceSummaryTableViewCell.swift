@@ -20,8 +20,8 @@ class DeviceSummaryTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        lowLabel.textColor = UIColor.flatSkyBlue
-        highLabel.textColor = UIColor.flatRed
+        lowLabel.textColor = UIColor.flatSkyBlue()
+        highLabel.textColor = UIColor.flatRed()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

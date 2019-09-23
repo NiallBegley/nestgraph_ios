@@ -62,7 +62,7 @@ class ChartViewController: UIViewController {
         let xAxis = chartView.xAxis
         xAxis.labelPosition = .bottomInside
         xAxis.labelFont = .systemFont(ofSize: 8, weight: .light)
-        xAxis.labelTextColor = UIColor.flatGrayDark
+        xAxis.labelTextColor = UIColor.flatGrayDark()
         xAxis.drawAxisLineEnabled = false
         xAxis.drawGridLinesEnabled = true
         xAxis.centerAxisLabelsEnabled = true
@@ -75,7 +75,7 @@ class ChartViewController: UIViewController {
         leftAxis.drawGridLinesEnabled = true
         leftAxis.granularityEnabled = true
         leftAxis.granularity = 5
-        leftAxis.labelTextColor = UIColor.flatGrayDark
+        leftAxis.labelTextColor = UIColor.flatGrayDark()
         
         chartView.rightAxis.enabled = false
         chartView.legend.form = .line
@@ -134,11 +134,11 @@ class ChartViewController: UIViewController {
         leftAxis.axisMinimum = Double(minimum)
         leftAxis.axisMaximum = Double(maximum)
         
-        let set1 = createSet(withLabel: "Internal Temperature", UIColor.flatSkyBlue, internalData)
-        let set2 = createSet(withLabel: "External Temperature", UIColor.flatRed, externalData)
-        let set3 = createSet(withLabel: "External Humidity", UIColor.flatGreen, externalHumidity)
-        let set4 = createSet(withLabel: "Internal Humidity", UIColor.flatYellow, internalHumidity)
-        let set5 = createSet(withLabel: "Target Temp", UIColor.flatPowderBlue, targetTemp)
+        let set1 = createSet(withLabel: "Internal Temperature", UIColor.flatSkyBlue(), internalData)
+        let set2 = createSet(withLabel: "External Temperature", UIColor.flatRed(), externalData)
+        let set3 = createSet(withLabel: "External Humidity", UIColor.flatGreen(), externalHumidity)
+        let set4 = createSet(withLabel: "Internal Humidity", UIColor.flatYellow(), internalHumidity)
+        let set5 = createSet(withLabel: "Target Temp", UIColor.flatPowderBlue(), targetTemp)
         
         let data = LineChartData(dataSets: [set1, set2, set3, set4, set5])
         

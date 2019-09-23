@@ -7,7 +7,7 @@ target 'NestGraph' do
 
   # Pods for NestGraph
   pod 'KeychainSwift', '~> 16.0'
-  pod 'ChameleonFramework/Swift', :git => 'https://github.com/ViccAlexander/Chameleon.git'
+  pod 'ChameleonFramework/Swift', :git => 'https://github.com/luckychris/Chameleon'
   pod 'Charts'
   
   target 'NestGraphTests' do
