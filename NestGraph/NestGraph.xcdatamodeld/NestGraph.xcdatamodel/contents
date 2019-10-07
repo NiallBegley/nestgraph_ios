@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14490.99" systemVersion="18F132" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14903" systemVersion="18F132" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Device" representedClassName=".Device" syncable="YES">
-        <attribute name="can_cool" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="can_heat" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="device_id" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="name_long" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="records" toMany="YES" deletionRule="Nullify" destinationEntity="Record" inverseName="device" inverseEntity="Record" syncable="YES"/>
+        <attribute name="can_cool" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="can_heat" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="created_at" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="device_id" optional="YES" attributeType="String"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="name_long" optional="YES" attributeType="String"/>
+        <relationship name="records" toMany="YES" deletionRule="Nullify" destinationEntity="Record" inverseName="device" inverseEntity="Record"/>
         <uniquenessConstraints>
             <uniquenessConstraint>
                 <constraint value="device_id"/>
@@ -14,17 +15,17 @@
         </uniquenessConstraints>
     </entity>
     <entity name="Record" representedClassName=".Record" syncable="YES">
-        <attribute name="created_at" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="device_id" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="external_humidity" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="external_temp" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="humidity" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="internal_temp" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="is_heating" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="target_temp" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="timeToTarget" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="device" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Device" inverseName="records" inverseEntity="Device" syncable="YES"/>
+        <attribute name="created_at" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="device_id" optional="YES" attributeType="String"/>
+        <attribute name="external_humidity" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="external_temp" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="humidity" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="internal_temp" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="is_heating" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="target_temp" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="timeToTarget" optional="YES" attributeType="String"/>
+        <relationship name="device" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Device" inverseName="records" inverseEntity="Device"/>
         <uniquenessConstraints>
             <uniquenessConstraint>
                 <constraint value="id"/>
@@ -33,7 +34,7 @@
         </uniquenessConstraints>
     </entity>
     <elements>
-        <element name="Device" positionX="-63" positionY="-18" width="128" height="133"/>
+        <element name="Device" positionX="-63" positionY="-18" width="128" height="148"/>
         <element name="Record" positionX="-566.796875" positionY="89.859375" width="128" height="210"/>
     </elements>
 </model>

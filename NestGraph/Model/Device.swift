@@ -24,6 +24,7 @@ class Device:  NSManagedObject, Codable {
     @NSManaged var name_long: String?
     @NSManaged var can_heat: Bool
     @NSManaged var can_cool: Bool
+    @NSManaged var  created_at : Date?
     
     required convenience init(from decoder: Decoder) throws {
 
@@ -41,6 +42,7 @@ class Device:  NSManagedObject, Codable {
         self.name_long = try container.decodeIfPresent(String.self, forKey: .name_long)
         self.can_heat = try container.decodeIfPresent(Bool.self, forKey: .can_heat) ?? false
         self.can_cool = try container.decodeIfPresent(Bool.self, forKey: .can_cool) ?? false
+        self.created_at = Date()
     }
 
     // MARK: - Encodable
