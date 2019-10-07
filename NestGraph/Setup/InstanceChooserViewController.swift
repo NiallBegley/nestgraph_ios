@@ -9,6 +9,7 @@
 import UIKit
 import CoreData
 import KeychainSwift
+import Foundation
 
 class InstanceChooserViewController: UIViewController {
 
@@ -20,6 +21,10 @@ class InstanceChooserViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+#if DEBUG
+        urlField.text = ProcessInfo.processInfo.environment["INSTANCE_URL"]
+#endif
     }
     
     func showErrorLabel(_ show: Bool, withError: String?)

@@ -23,6 +23,12 @@ class AuthorizationViewController: UIViewController, URLSessionTaskDelegate, UIT
     override func viewDidLoad() {
         super.viewDidLoad()
         reauthorizeLabel.isHidden = !reauthorization
+        
+
+#if DEBUG
+        usernameField.text = ProcessInfo.processInfo.environment["USERNAME"]
+        passwordField.text = ProcessInfo.processInfo.environment["PASSWORD"]
+#endif
     }
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
