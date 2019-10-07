@@ -11,7 +11,7 @@ import UIKit
 import CoreData
 import KeychainSwift
 
-class SummaryTableViewController: UITableViewController, RecordControllerDelegate, SettingsDelegate {
+class SummaryTableViewController: UITableViewController, RecordControllerDelegate, SettingsDelegate, UIAdaptivePresentationControllerDelegate {
     
     @IBOutlet var tableview: UITableView!
     var persistentContainer: NSPersistentContainer?
@@ -60,12 +60,8 @@ class SummaryTableViewController: UITableViewController, RecordControllerDelegat
         refreshControl?.addTarget(self, action: #selector(buttonClickedRefresh(_:)), for: .valueChanged)
     }
     
+    
     override func viewDidAppear(_ animated: Bool) {
-        if showingSetup {
-            extractData()
-            showingSetup = false
-        }
-        
         tableview.reloadData()
     }
     
@@ -79,12 +75,21 @@ class SummaryTableViewController: UITableViewController, RecordControllerDelegat
         }
     }
     
+    func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
+        if showingSetup {
+            extractData()
+            showingSetup = false
+        }
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == AUTHORIZATION_SEGUE,
             let vc = segue.destination as? SetupViewController
         {
             showingSetup = true
+            vc.isModalInPresentation = true
             vc.persistentContainer = persistentContainer
+            vc.presentationController?.delegate = self
         }
         else if segue.identifier == "SETTINGS_SEGUE",
             let vc = segue.destination as? SettingsTableViewController

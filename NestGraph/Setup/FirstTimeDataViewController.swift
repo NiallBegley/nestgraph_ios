@@ -108,6 +108,12 @@ class FirstTimeDataViewController: UIViewController, UITableViewDelegate, UITabl
     
     @IBAction func onButtonDone(_ sender: Any) {
         self.navigationController?.dismiss(animated: true, completion: nil)
+        
+        //Trigger the diddismiss delegate call so that we can update the UI once the user is done
+        if let pVC = presentingViewController,
+            let pController = pVC.presentationController {
+                navigationController?.presentationController?.delegate? .presentationControllerDidDismiss?(pController)
+        }
     }
     
     
