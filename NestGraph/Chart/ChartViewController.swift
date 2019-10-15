@@ -138,13 +138,11 @@ class ChartViewController: UIViewController {
         let set2 = createSet(withLabel: "External Temperature", UIColor.flatRed(), externalData)
         let set3 = createSet(withLabel: "External Humidity", UIColor.flatGreen(), externalHumidity)
         let set4 = createSet(withLabel: "Internal Humidity", UIColor.flatYellow(), internalHumidity)
-        let set5 = createSet(withLabel: "Target Temp", UIColor.flatPowderBlue(), targetTemp)
+        let set5 = createSet(withLabel: "Target Temp", UIColor.flatOrange(), targetTemp)
         
         let data = LineChartData(dataSets: [set1, set2, set3, set4, set5])
         
         chartView.data = data
-        
-        selectedDisplayOption(.lowest)
     
     }
 

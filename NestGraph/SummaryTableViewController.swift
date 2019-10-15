@@ -10,6 +10,7 @@
 import UIKit
 import CoreData
 import KeychainSwift
+import os
 
 class SummaryTableViewController: UITableViewController, RecordControllerDelegate, SettingsDelegate, UIAdaptivePresentationControllerDelegate {
     
@@ -35,6 +36,7 @@ class SummaryTableViewController: UITableViewController, RecordControllerDelegat
                 recordController?.deleteOldRecords()
                 
                 recordController?.refreshRecordsForAllDevices {
+                    os_log("Finished refreshing records for all devices")
                     self.extractData()
                     DispatchQueue.main.async() {
                         self.refreshControl?.endRefreshing()
@@ -62,15 +64,14 @@ class SummaryTableViewController: UITableViewController, RecordControllerDelegat
     
     
     override func viewDidAppear(_ animated: Bool) {
-        tableview.reloadData()
+        //tableview.reloadData()
     }
     
     func extractData() {
         
-        //TODO: There's a problem here where the refresh is changing the device data array from under the tableview controller since we perform this in a background thread.  Needs to be addressed.
-        devices = recordController?.getDevices() ?? []
-        
         DispatchQueue.main.async() {
+            os_log("Setting devices array and reloading table data")
+            self.devices = self.recordController?.getDevices() ?? []
             self.tableview.reloadData()
         }
     }
@@ -118,8 +119,8 @@ class SummaryTableViewController: UITableViewController, RecordControllerDelegat
         }
   
         recordController?.refreshRecordsForAllDevices {
-            self.extractData()
             DispatchQueue.main.async() {
+                self.extractData()
                 self.refreshControl?.endRefreshing()
                 
             }

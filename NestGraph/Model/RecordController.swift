@@ -9,6 +9,7 @@
 import UIKit
 import CoreData
 import KeychainSwift
+import os
 
 enum NetworkingErrorType {
     case noError
@@ -24,14 +25,28 @@ class RecordController: NSObject {
 
     var persistentContainer: NSPersistentContainer?
     weak var delegate: RecordControllerDelegate?
+    let backgroundContext : NSManagedObjectContext?
     
     init(container: NSPersistentContainer) {
+        backgroundContext = container.newBackgroundContext()
         self.persistentContainer = container
+        super.init()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(backgroundContextUpdated(_:)), name: .NSManagedObjectContextDidSave, object: backgroundContext)
+        
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    @objc func backgroundContextUpdated(_ notification : NSNotification) {
+        self.persistentContainer?.viewContext.mergeChanges(fromContextDidSave: notification as Notification)
     }
     
     // MARK: - Delete Records
     func deleteAll(entity: String, before date: Date) -> Bool {
-        
+        os_log("Deleting all records")
         guard let context = self.persistentContainer?.viewContext else {
             return false
         }
@@ -104,7 +119,7 @@ class RecordController: NSObject {
     // MARK: - Refresh
     func refreshRecordsFor(device: Device, completionHandler: @escaping (_ error: NetworkingErrorType) -> Void)
     {
-        print("Fetching records for device \(device.name ?? "#NAME NOT FOUND#")...")
+        os_log("Fetching records for device: %s", device.name ?? "unknown")
         
         guard let host = KeychainSwift().getHost(),
             var url = URLComponents(string: host + "/records/api_endpoint.json") else
@@ -153,13 +168,12 @@ class RecordController: NSObject {
                 return
             }
             
-            guard let records = self.parse(data, entity: [Record].self) else { return }
+                guard let records = self.parse(data, entity: [Record].self) else { return }
+                
+                print("Fetched \(records.count) records for device \(device.name ?? "#DEVICE NAME NOT FOUND#")")
+                
+                completionHandler(.noError)
             
-//            device.mutableSetValue(forKey: "records").addObjects(from: records)
-            
-            print("Fetched \(records.count) records for device \(device.name ?? "#DEVICE NAME NOT FOUND#")")
-            
-            completionHandler(.noError)
             
         }
         
@@ -167,6 +181,8 @@ class RecordController: NSObject {
     }
     
     func refreshRecordsForAllDevices(completionHandler: @escaping () -> Void) {
+        os_log("Refreshing records for all devices")
+        
         //Prevent the failedAuthorization delegate call from being called 1 time for every Device using a dispatch group
         //This has the added benefit of preventing multiple parse() calls running on different threads from writing to the database at the same time
         let group = DispatchGroup()
@@ -184,6 +200,7 @@ class RecordController: NSObject {
         }
         
         group.notify(queue: DispatchQueue.global(qos: .background)) {
+            os_log("Entering into notify()")
             switch(errorType) {
                 case .authError:
                     self.delegate?.failedAuthorization()
@@ -198,6 +215,7 @@ class RecordController: NSObject {
                 
             }
             
+            os_log("Executing completion handler")
             completionHandler()
         }
     }
@@ -209,7 +227,7 @@ class RecordController: NSObject {
             }
             
             // Parse JSON data
-            guard let managedObjectContext = persistentContainer?.viewContext else {
+            guard let managedObjectContext = self.backgroundContext else {
                 return nil
             }
             
@@ -314,18 +332,22 @@ class RecordController: NSObject {
     }
     
     func lowestInternalTemp(forDevice device : Device) -> Record? {
+        os_log("Fetching lowest internal temperature for device: %s", device.name ?? "unknown")
         return extremeValue(forKey: "internal_temp", device: device, lowest: true)
     }
     
     func lowestExternalTemp(forDevice device : Device) -> Record? {
+        os_log("Fetching lowest external temperature for device: %s", device.name ?? "unknown")
         return extremeValue(forKey: "external_temp", device: device, lowest: true)
     }
     
     func highestInternalTemp(forDevice device : Device) -> Record? {
+        os_log("Fetching highest internal temperature for device: %s", device.name ?? "unknown")
         return extremeValue(forKey: "internal_temp", device: device, lowest: false)
     }
     
     func highestExternalTemp(forDevice device : Device) -> Record? {
+        os_log("Fetching highest external temperature for device: %s", device.name ?? "unknown")
         return extremeValue(forKey: "external_temp", device: device, lowest: false)
     }
     
