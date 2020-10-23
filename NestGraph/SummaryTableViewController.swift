@@ -135,11 +135,13 @@ class SummaryTableViewController: UITableViewController, RecordControllerDelegat
     
     // MARK: - RecordControllerDelegate
     func failedAuthorization() {
-         guard let authVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AUTHORIZATION_VIEW_CONTROLLER") as? AuthorizationViewController else { return }
-        authVC.reauthorization = true
         showingSetup = true
         
         DispatchQueue.main.async() {
+            
+            guard let authVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AUTHORIZATION_VIEW_CONTROLLER") as? AuthorizationViewController else { return }
+            authVC.reauthorization = true
+            
             self.refreshControl?.endRefreshing()
             self.present(authVC, animated: true, completion: nil)
         }
